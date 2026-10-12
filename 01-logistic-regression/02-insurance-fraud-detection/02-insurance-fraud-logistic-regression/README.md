@@ -18,7 +18,7 @@ Review the current dataset record and license before redistribution. Attribute t
 ## Project files
 
 ```text
-02-insurance-fraud-logistic-regression/
+
 ├── insurance_logistic_regression.ipynb
 ├── app.py
 ├── requirements.txt

@@ -11,7 +11,24 @@ ROOT = Path(__file__).resolve().parent
 NESTED_PROJECT_DIR = ROOT / "02-insurance-fraud-logistic-regression"
 if not (ROOT / "insurance_logistic_regression.ipynb").exists() and (NESTED_PROJECT_DIR / "insurance_logistic_regression.ipynb").exists():
     ROOT = NESTED_PROJECT_DIR
-ARTIFACT_DIR = ROOT / "artifacts"
+# Artifacts are currently stored in the parent insurance project folder.
+# Keep a fallback to the local folder for future clean organization.
+LOCAL_ARTIFACT_DIR = ROOT / "artifacts"
+PARENT_ARTIFACT_DIR = ROOT.parent / "artifacts"
+
+ARTIFACT_DIR = (
+    PARENT_ARTIFACT_DIR
+    if all(
+        (PARENT_ARTIFACT_DIR / name).exists()
+        for name in [
+            "insurance_fraud_pipeline.joblib",
+            "decision_threshold.joblib",
+            "model_metadata.json",
+        ]
+    )
+    else LOCAL_ARTIFACT_DIR
+)
+
 MODEL_PATH = ARTIFACT_DIR / "insurance_fraud_pipeline.joblib"
 THRESHOLD_PATH = ARTIFACT_DIR / "decision_threshold.joblib"
 METADATA_PATH = ARTIFACT_DIR / "model_metadata.json"

@@ -7,6 +7,10 @@ import joblib
 import sklearn
 
 ROOT = Path(__file__).resolve().parent
+# Support both the intended project root and the currently nested folder layout.
+NESTED_PROJECT_DIR = ROOT / "02-insurance-fraud-logistic-regression"
+if not (ROOT / "insurance_logistic_regression.ipynb").exists() and (NESTED_PROJECT_DIR / "insurance_logistic_regression.ipynb").exists():
+    ROOT = NESTED_PROJECT_DIR
 ARTIFACT_DIR = ROOT / "artifacts"
 MODEL_PATH = ARTIFACT_DIR / "insurance_fraud_pipeline.joblib"
 THRESHOLD_PATH = ARTIFACT_DIR / "decision_threshold.joblib"

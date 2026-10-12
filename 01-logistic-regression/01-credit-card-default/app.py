@@ -14,9 +14,10 @@ import streamlit as st
 # Configuration and model artifacts
 # -----------------------------------------------------------------------------
 APP_DIR = Path(__file__).resolve().parent
-MODEL_PATH = APP_DIR / "logistic_regression_pipeline.joblib"
-THRESHOLD_PATH = APP_DIR / "decision_threshold.joblib"
-METADATA_PATH = APP_DIR / "model_metadata.json"
+ARTIFACT_DIR = APP_DIR / "artifacts"
+MODEL_PATH = ARTIFACT_DIR / "logistic_regression_pipeline.joblib"
+THRESHOLD_PATH = ARTIFACT_DIR / "decision_threshold.joblib"
+METADATA_PATH = ARTIFACT_DIR / "model_metadata.json"
 
 st.set_page_config(
     page_title="Credit Default Intelligence",
@@ -61,8 +62,7 @@ def load_artifacts():
     if missing:
         raise FileNotFoundError(
             "Missing required model artifact(s): " + ", ".join(missing) +
-            ". Run the final artifact-save and download cells in the updated notebook, "
-            "then place all three files beside app.py."
+            ". Confirm the files are committed under the project's artifacts/ directory."
         )
     model = joblib.load(MODEL_PATH)
     threshold = float(joblib.load(THRESHOLD_PATH))

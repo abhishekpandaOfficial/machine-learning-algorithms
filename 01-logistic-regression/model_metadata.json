@@ -1,0 +1,347 @@
+{
+  "model_name": "Credit Card Default Prediction",
+  "model_version": "1.0.0",
+  "target_name": "default_payment_next_month",
+  "positive_class": 1,
+  "threshold": 0.2,
+  "feature_names": [
+    "x1",
+    "x2",
+    "x3",
+    "x4",
+    "x5",
+    "x6",
+    "x7",
+    "x8",
+    "x9",
+    "x10",
+    "x11",
+    "x12",
+    "x13",
+    "x14",
+    "x15",
+    "x16",
+    "x17",
+    "x18",
+    "x19",
+    "x20",
+    "x21",
+    "x22",
+    "x23"
+  ],
+  "categorical_features": [
+    "x2",
+    "x3",
+    "x4",
+    "x6",
+    "x7",
+    "x8",
+    "x9",
+    "x10",
+    "x11"
+  ],
+  "features": {
+    "x1": {
+      "label": "Credit limit (LIMIT_BAL)",
+      "description": "Assigned credit limit. Values are in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Customer profile",
+      "min": 10000.0,
+      "max": 1000000.0,
+      "median": 140000.0
+    },
+    "x2": {
+      "label": "Sex (SEX)",
+      "description": "Dataset category code: 1 or 2. This is a historical dataset field.",
+      "kind": "categorical",
+      "section": "Customer profile",
+      "min": 1.0,
+      "max": 2.0,
+      "median": 2.0,
+      "categories": [
+        1,
+        2
+      ]
+    },
+    "x3": {
+      "label": "Education (EDUCATION)",
+      "description": "Encoded education category. Use only codes observed in the training data.",
+      "kind": "categorical",
+      "section": "Customer profile",
+      "min": 0.0,
+      "max": 6.0,
+      "median": 2.0,
+      "categories": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6
+      ]
+    },
+    "x4": {
+      "label": "Marital status (MARRIAGE)",
+      "description": "Encoded marital-status category. Use only codes observed in the training data.",
+      "kind": "categorical",
+      "section": "Customer profile",
+      "min": 0.0,
+      "max": 3.0,
+      "median": 2.0,
+      "categories": [
+        0,
+        1,
+        2,
+        3
+      ]
+    },
+    "x5": {
+      "label": "Age (AGE)",
+      "description": "Age recorded in years.",
+      "kind": "numeric",
+      "section": "Customer profile",
+      "min": 21.0,
+      "max": 75.0,
+      "median": 34.0
+    },
+    "x6": {
+      "label": "Most recent repayment status (PAY_0)",
+      "description": "Repayment-status code for the most recent month; this is an encoded category, not a continuous measurement.",
+      "kind": "categorical",
+      "section": "Repayment history",
+      "min": -2.0,
+      "max": 8.0,
+      "median": 0.0,
+      "categories": [
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "x7": {
+      "label": "Repayment status — 2 months ago (PAY_2)",
+      "description": "Recorded repayment-status code.",
+      "kind": "categorical",
+      "section": "Repayment history",
+      "min": -2.0,
+      "max": 8.0,
+      "median": 0.0,
+      "categories": [
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "x8": {
+      "label": "Repayment status — 3 months ago (PAY_3)",
+      "description": "Recorded repayment-status code.",
+      "kind": "categorical",
+      "section": "Repayment history",
+      "min": -2.0,
+      "max": 8.0,
+      "median": 0.0,
+      "categories": [
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "x9": {
+      "label": "Repayment status — 4 months ago (PAY_4)",
+      "description": "Recorded repayment-status code.",
+      "kind": "categorical",
+      "section": "Repayment history",
+      "min": -2.0,
+      "max": 8.0,
+      "median": 0.0,
+      "categories": [
+        -2,
+        -1,
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "x10": {
+      "label": "Repayment status — 5 months ago (PAY_5)",
+      "description": "Recorded repayment-status code.",
+      "kind": "categorical",
+      "section": "Repayment history",
+      "min": -2.0,
+      "max": 8.0,
+      "median": 0.0,
+      "categories": [
+        -2,
+        -1,
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "x11": {
+      "label": "Repayment status — 6 months ago (PAY_6)",
+      "description": "Recorded repayment-status code.",
+      "kind": "categorical",
+      "section": "Repayment history",
+      "min": -2.0,
+      "max": 8.0,
+      "median": 0.0,
+      "categories": [
+        -2,
+        -1,
+        0,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ]
+    },
+    "x12": {
+      "label": "Bill statement — month 1 (BILL_AMT1)",
+      "description": "Statement balance for month 1, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Bill statements",
+      "min": -165580.0,
+      "max": 964511.0,
+      "median": 22330.0
+    },
+    "x13": {
+      "label": "Bill statement — month 2 (BILL_AMT2)",
+      "description": "Statement balance for month 2, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Bill statements",
+      "min": -69777.0,
+      "max": 983931.0,
+      "median": 21107.0
+    },
+    "x14": {
+      "label": "Bill statement — month 3 (BILL_AMT3)",
+      "description": "Statement balance for month 3, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Bill statements",
+      "min": -61506.0,
+      "max": 855086.0,
+      "median": 20031.0
+    },
+    "x15": {
+      "label": "Bill statement — month 4 (BILL_AMT4)",
+      "description": "Statement balance for month 4, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Bill statements",
+      "min": -81334.0,
+      "max": 891586.0,
+      "median": 19004.5
+    },
+    "x16": {
+      "label": "Bill statement — month 5 (BILL_AMT5)",
+      "description": "Statement balance for month 5, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Bill statements",
+      "min": -81334.0,
+      "max": 927171.0,
+      "median": 18102.5
+    },
+    "x17": {
+      "label": "Bill statement — month 6 (BILL_AMT6)",
+      "description": "Statement balance for month 6, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Bill statements",
+      "min": -339603.0,
+      "max": 961664.0,
+      "median": 16993.0
+    },
+    "x18": {
+      "label": "Payment amount — month 1 (PAY_AMT1)",
+      "description": "Payment amount recorded for month 1, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Payment history",
+      "min": 0.0,
+      "max": 873552.0,
+      "median": 2100.5
+    },
+    "x19": {
+      "label": "Payment amount — month 2 (PAY_AMT2)",
+      "description": "Payment amount recorded for month 2, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Payment history",
+      "min": 0.0,
+      "max": 1215471.0,
+      "median": 2014.0
+    },
+    "x20": {
+      "label": "Payment amount — month 3 (PAY_AMT3)",
+      "description": "Payment amount recorded for month 3, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Payment history",
+      "min": 0.0,
+      "max": 896040.0,
+      "median": 1805.5
+    },
+    "x21": {
+      "label": "Payment amount — month 4 (PAY_AMT4)",
+      "description": "Payment amount recorded for month 4, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Payment history",
+      "min": 0.0,
+      "max": 621000.0,
+      "median": 1500.0
+    },
+    "x22": {
+      "label": "Payment amount — month 5 (PAY_AMT5)",
+      "description": "Payment amount recorded for month 5, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Payment history",
+      "min": 0.0,
+      "max": 426529.0,
+      "median": 1500.0
+    },
+    "x23": {
+      "label": "Payment amount — month 6 (PAY_AMT6)",
+      "description": "Payment amount recorded for month 6, in the dataset's original units.",
+      "kind": "numeric",
+      "section": "Payment history",
+      "min": 0.0,
+      "max": 528666.0,
+      "median": 1500.0
+    }
+  }
+}

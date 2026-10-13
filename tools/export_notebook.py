@@ -45,7 +45,7 @@ def main() -> int:
     output_dir = (
         args.output_dir.resolve()
         if args.output_dir
-        else notebook.parent.parent / "docs"
+        else notebook.parent / "docs"
     )
     output_dir.mkdir(parents=True, exist_ok=True)
     stem = notebook.stem

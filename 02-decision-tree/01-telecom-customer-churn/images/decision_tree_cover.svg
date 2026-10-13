@@ -7,7 +7,7 @@
 <text x="60" y="155" font-family="Inter,Arial,sans-serif" font-size="42" font-weight="700" fill="#ffffff">Decision Tree Classifier</text>
 <text x="60" y="203" font-family="Inter,Arial,sans-serif" font-size="23" fill="#dbeafe">From intuition and mathematics to a tested prediction pipeline</text>
 <text x="60" y="300" font-family="Inter,Arial,sans-serif" font-size="18" fill="#bfdbfe">THEORY  •  CODE  •  EVALUATION  •  DEPLOYMENT</text>
-<g stroke="#bae6fd" stroke-width="4" fill="none" stroke-linecap="round"><path d="M890 115 L815 175 L760 220"/><path d="M815 175 L920 220"/><path d="M890 115 L1000 175 L960 220"/><path d="M1000 175 L1080 220"/></g>
-<g fill="url(#node)" stroke="#e0f2fe" stroke-width="2"><rect x="825" y="70" width="130" height="52" rx="14"/><rect x="705" y="220" width="110" height="50" rx="14"/><rect x="870" y="220" width="110" height="50" rx="14"/><rect x="910" y="220" width="110" height="50" rx="14"/><rect x="1030" y="220" width="110" height="50" rx="14"/></g>
-<g font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700" fill="#082f49" text-anchor="middle"><text x="890" y="101">Root split</text><text x="760" y="250">Leaf A</text><text x="925" y="250">Leaf B</text><text x="965" y="250">Leaf C</text><text x="1085" y="250">Leaf D</text></g>
+<g stroke="#bae6fd" stroke-width="4" fill="none" stroke-linecap="round"><path d="M890 115 L810 175 L740 220"/><path d="M810 175 L860 220"/><path d="M890 115 L1010 175 L980 220"/><path d="M1010 175 L1100 220"/></g>
+<g fill="url(#node)" stroke="#e0f2fe" stroke-width="2"><rect x="825" y="70" width="130" height="52" rx="14"/><rect x="690" y="220" width="100" height="50" rx="14"/><rect x="810" y="220" width="100" height="50" rx="14"/><rect x="930" y="220" width="100" height="50" rx="14"/><rect x="1050" y="220" width="100" height="50" rx="14"/></g>
+<g font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700" fill="#082f49" text-anchor="middle"><text x="890" y="101">Root split</text><text x="740" y="250">Leaf A</text><text x="860" y="250">Leaf B</text><text x="980" y="250">Leaf C</text><text x="1100" y="250">Leaf D</text></g>
 </svg>

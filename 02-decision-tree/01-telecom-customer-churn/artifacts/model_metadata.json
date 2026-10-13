@@ -1,0 +1,40 @@
+{
+  "algorithm": "DecisionTreeClassifier",
+  "project": "telecom-customer-churn",
+  "target_column": "Churn",
+  "positive_class": "Yes",
+  "input_features": [
+    "gender",
+    "SeniorCitizen",
+    "Partner",
+    "Dependents",
+    "tenure",
+    "PhoneService",
+    "MultipleLines",
+    "InternetService",
+    "OnlineSecurity",
+    "OnlineBackup",
+    "DeviceProtection",
+    "TechSupport",
+    "StreamingTV",
+    "StreamingMovies",
+    "Contract",
+    "PaperlessBilling",
+    "PaymentMethod",
+    "MonthlyCharges",
+    "TotalCharges"
+  ],
+  "classes": [
+    "No",
+    "Yes"
+  ],
+  "sklearn_version": "1.6.1",
+  "python_version": "3.12.13",
+  "dataset_source": "https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv",
+  "educational_only": true,
+  "limitations": [
+    "Historical sample data does not guarantee future churn predictions.",
+    "Feature importance is not causal evidence.",
+    "Any real use requires governance, privacy review and subgroup evaluation."
+  ]
+}

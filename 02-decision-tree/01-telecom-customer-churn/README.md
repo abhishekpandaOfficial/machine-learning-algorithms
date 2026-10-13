@@ -14,20 +14,31 @@ Teach a Decision Tree Classifier using a public telecom customer churn sample. T
 
 **Terms check:** The IBM repository describes the code pattern's licence, but that does not automatically establish a separate licence for the dataset. Before redistributing the CSV, verify applicable data terms. The raw dataset will not be committed to this repository by default; the notebook will document how to obtain it from the source.
 
-## Planned deliverables
+## Project files
 
-- `notebooks/decision_tree_churn.ipynb`: theory, equations, EDA, commented training code, evaluation, outputs and interpretation.
+- `decision_tree_churn.ipynb`: theory, equations, EDA, commented training code, evaluation, outputs and interpretation.
+- `decision_tree_churn.html`: self-contained browser export with embedded images and saved outputs.
+- `decision_tree_churn.pdf`: reviewed printable export.
 - `src/`: reusable data checks, training and evaluation.
 - `artifacts/`: fitted pipeline and metadata created by the training workflow.
 - `tests/`: preprocessing, prediction and artifact-loading tests.
-- `app.py`: polished Streamlit prediction and model-explanation UI.
-- `docs/`: reviewed HTML and PDF exports of the executed notebook.
+- `app.py`: crimson-branded Streamlit prediction, batch-scoring and model-guide UI.
 - `requirements.txt` and this README: reproducible setup and usage instructions.
 
 ## Planned evaluation
 
 Use a stratified split and compare against a simple baseline. Report confusion matrix, precision, recall, F1, ROC-AUC and PR-AUC as appropriate; explain the trade-offs rather than presenting accuracy alone. Exclude identifiers from model inputs and check for leakage.
 
+## Run the app
+
+From the repository root:
+
+```bash
+source .venv/bin/activate
+python -m pip install -r 02-decision-tree/01-telecom-customer-churn/requirements.txt
+streamlit run 02-decision-tree/01-telecom-customer-churn/app.py
+```
+
 ## Status
 
-Planning only. Dataset terms, implementation, model metrics, tests, exports and deployment must be verified before this project is marked complete.
+The notebook executes successfully with Python 3.12 and its HTML/PDF exports are generated. The application, automated tests, dataset redistribution terms and public deployment still require separate verification.

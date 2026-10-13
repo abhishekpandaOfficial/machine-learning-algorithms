@@ -24,24 +24,37 @@ code .
 
 Do not run `git clone` inside an existing repository folder.
 
-## 3. Create an isolated Python environment for Decision Tree Project 1
+## 3. Create the shared Python 3.12 environment
 
-From the repository root:
+From the repository root (install [uv](https://docs.astral.sh/uv/) if needed):
 
 ```bash
-cd 02-decision-tree/01-telecom-customer-churn
-python3 -m venv .venv
+uv python install 3.12
+uv venv --python 3.12 --seed .venv
 source .venv/bin/activate
-python -m pip install --upgrade pip
-pip install -r requirements.txt
-python -m ipykernel install --user --name dt-churn --display-name "Python (Decision Tree - Churn)"
+python -m pip install -r requirements.txt
+python -m ipykernel install --user --name machine-learning-algorithms --display-name "Python 3.12 (Machine Learning Algorithms)"
 ```
 
-If `pip install` fails, keep the full error and stop. Fix dependencies before running the notebook. Return to the repository root for the export command with `cd ../../..`.
+For an exact reinstall on this Mac, use `python -m pip install -r requirements-lock.txt`. The lock records the installed package versions.
 
-## 4. Select the correct notebook kernel
+The root `.python-version` selects Python 3.12. Use one root `.venv` for all projects; the root requirements file includes each project's dependencies. Python 3.13 is also supported: recreate the environment with `uv venv --python 3.13 --seed .venv`, reinstall dependencies, and register its kernel with a matching display name. Do not reuse a venv across Python versions.
 
-Open `notebooks/decision_tree_churn.ipynb` in VS Code. Click **Select Kernel** at the upper right and choose **Python (Decision Tree - Churn)** (or the interpreter inside this project's `.venv`). This ensures the notebook uses the installed packages.
+## 4. Select the notebook kernel and render equations
+
+Install the recommended Python and Jupyter extensions. Workspace settings point to `${workspaceFolder}/.venv/bin/python`. Open a notebook, click **Select Kernel**, and choose **Python 3.12 (Machine Learning Algorithms)** or the root `.venv` interpreter. Previously selected kernels may need to be changed manually.
+
+Use `$X$` for inline math and standalone `$$` lines for display math in Markdown cells:
+
+```markdown
+For class proportions $p_k$:
+
+$$
+G(t) = 1 - \sum_{k=1}^{K} p_k^2
+$$
+```
+
+Run a Markdown cell to render it in Jupyter. For `.md` files, open VS Code's Markdown preview; `markdown.math.enabled` is enabled in workspace settings. A system LaTeX installation is not required for notebook HTML or WebPDF exports.
 
 ## 5. Execute and inspect
 
@@ -52,12 +65,12 @@ Use **Run All**. Read all Markdown cells and inspect the outputs. Resolve any ce
 From the repository root:
 
 ```bash
-python tools/export_notebook.py "02-decision-tree/01-telecom-customer-churn/notebooks/decision_tree_churn.ipynb"
+python tools/export_notebook.py "02-decision-tree/01-telecom-customer-churn/decision_tree_churn.ipynb"
 ```
 
 The script executes a temporary copy (source notebook is not overwritten), then creates:
-- `02-decision-tree/01-telecom-customer-churn/notebooks/docs/decision_tree_churn.html`
-- `02-decision-tree/01-telecom-customer-churn/notebooks/docs/decision_tree_churn.pdf`
+- `02-decision-tree/01-telecom-customer-churn/decision_tree_churn.html`
+- `02-decision-tree/01-telecom-customer-churn/decision_tree_churn.pdf`
 
 The HTML export supports syntax highlighting and preserves cell outputs. The PDF uses nbconvert's WebPDF renderer (Chromium/Playwright). The first export may need to download Chromium.
 

@@ -12,6 +12,7 @@ data/*
 # Local experiment tracking
 mlruns/
 .mlflow/
+mlflow.db
 
 # Generated model artifacts may be committed only after review
 # artifacts/*.joblib

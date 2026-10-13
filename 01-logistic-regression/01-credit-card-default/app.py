@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import io
+import base64
 import json
 from pathlib import Path
 from typing import Any
@@ -9,11 +10,13 @@ import joblib
 import numpy as np
 import pandas as pd
 import streamlit as st
+from PIL import Image
 
 # -----------------------------------------------------------------------------
 # Configuration and model artifacts
 # -----------------------------------------------------------------------------
 APP_DIR = Path(__file__).resolve().parent
+LOGO_PATH = APP_DIR / "assets" / "a-logo.png"
 ARTIFACT_DIR = APP_DIR / "artifacts"
 MODEL_PATH = ARTIFACT_DIR / "logistic_regression_pipeline.joblib"
 THRESHOLD_PATH = ARTIFACT_DIR / "decision_threshold.joblib"
@@ -21,7 +24,7 @@ METADATA_PATH = ARTIFACT_DIR / "model_metadata.json"
 
 st.set_page_config(
     page_title="Credit Default Intelligence",
-    page_icon="💳",
+    page_icon=Image.open(LOGO_PATH),
     layout="wide",
     initial_sidebar_state="expanded",
 )
@@ -30,14 +33,21 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-      .block-container {max-width: 1440px; padding-top: 1.5rem; padding-bottom: 3rem;}
-      .hero {padding: 1.35rem 1.5rem; border-radius: 16px; background: linear-gradient(120deg,#10243a,#1d4967); color: white; margin-bottom: 1.1rem;}
-      .hero h1 {margin: 0; font-size: 2rem; color: white;}
-      .hero p {margin: .45rem 0 0 0; color: #e5eef5;}
-      .metric-card {border: 1px solid rgba(128,128,128,.25); padding: 1rem; border-radius: 12px; min-height: 105px;}
-      .muted {color: #64748b; font-size: .88rem;}
-      div[data-testid="stMetric"] {border: 1px solid rgba(128,128,128,.20); padding: 12px 14px; border-radius: 12px;}
-      [data-testid="stSidebar"] {border-right: 1px solid rgba(128,128,128,.18);}
+      .stApp {background:linear-gradient(180deg,#fff 0,#fff7f8 46%,#fff 100%);}
+      .block-container {max-width: 1320px; padding-top: 1.5rem; padding-bottom: 3rem;}
+      .hero {display:flex;gap:1.25rem;align-items:center;padding:1.65rem 1.8rem;border-radius:22px;
+        background:linear-gradient(125deg,#4c0519 0%,#9f1239 48%,#e11d48 100%);color:white;margin-bottom:1.25rem;
+        box-shadow:0 18px 45px rgba(136,19,55,.22);}
+      .hero img {width:78px;height:78px;object-fit:contain;border-radius:18px;background:white;padding:7px;}
+      .hero h1 {margin:0;font-size:clamp(1.8rem,4vw,2.65rem);line-height:1.05;color:white;}
+      .hero p {margin:.5rem 0 0;color:#ffe4e6;max-width:780px;}
+      .eyebrow {color:#fecdd3;text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;font-weight:800;}
+      .metric-card {border:1px solid #fecdd3;padding:1rem;border-radius:16px;min-height:105px;background:white;}
+      .muted {color:#6b5560;font-size:.88rem;}
+      div[data-testid="stMetric"], div[data-testid="stForm"] {border:1px solid #fecdd3;padding:12px 14px;border-radius:16px;background:white;}
+      button[kind="primary"] {background:#be123c !important;border-color:#be123c !important;border-radius:999px !important;}
+      .stDownloadButton button {border-radius:999px !important;}
+      [data-testid="stSidebar"] {background:#fff7f8;border-right:1px solid #fecdd3;}
     </style>
     """,
     unsafe_allow_html=True,
@@ -206,7 +216,8 @@ def validate_rows(frame: pd.DataFrame) -> tuple[pd.DataFrame, pd.DataFrame]:
 # -----------------------------------------------------------------------------
 # Sidebar and header
 # -----------------------------------------------------------------------------
-st.sidebar.title("💳 Credit Default")
+st.sidebar.image(LOGO_PATH, width=74)
+st.sidebar.title("Credit Default")
 st.sidebar.caption("Model-powered educational demonstration")
 page = st.sidebar.radio("Workspace", ["Single prediction", "Bulk predictions", "Model information"])
 st.sidebar.divider()
@@ -214,9 +225,11 @@ st.sidebar.metric("Decision threshold", f"{threshold:.2%}")
 st.sidebar.caption("Class 1 is the dataset's default-payment label.")
 st.sidebar.warning("Educational demonstration only. Do not use as the sole basis for lending or credit decisions.")
 
+logo_data = base64.b64encode(LOGO_PATH.read_bytes()).decode("ascii")
 st.markdown(
-    "<div class='hero'><h1>Credit Default Intelligence</h1>"
-    "<p>Explore estimated next-month default probability with transparent inputs, data validation, and batch analysis.</p></div>",
+    f"<div class='hero'><img src='data:image/png;base64,{logo_data}' alt='A brand logo'><div>"
+    "<div class='eyebrow'>Logistic Regression · Credit analytics</div><h1>Credit Default Intelligence</h1>"
+    "<p>Explore an estimated next-month default signal with guided inputs, clear validation, and downloadable results.</p></div></div>",
     unsafe_allow_html=True,
 )
 

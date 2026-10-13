@@ -32,7 +32,7 @@ Run from the repository root, replacing the path with the notebook you want to p
 python tools/export_notebook.py "PATH/TO/YOUR_NOTEBOOK.ipynb"
 ```
 
-By default, the HTML and PDF are saved in a `docs/` folder beside the notebook. To choose a different destination:
+By default, the HTML and PDF are saved beside the notebook in the project root. To choose a different destination:
 
 ```bash
 python tools/export_notebook.py "PATH/TO/YOUR_NOTEBOOK.ipynb" --output-dir "PATH/TO/docs"

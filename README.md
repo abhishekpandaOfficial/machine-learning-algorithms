@@ -38,3 +38,16 @@ For each project, the goal is to provide:
 ### Export notebooks to HTML and PDF
 
 See [the notebook publishing guide](tools/README.md) and use the [export script](tools/export_notebook.py). Exports must be generated and reviewed in an environment with the project's dependencies and data available before they are committed as public downloads.
+
+## Local Python and math setup
+
+Use the shared Python **3.12** environment at the repository root:
+
+```bash
+uv python install 3.12
+uv venv --python 3.12 --seed .venv
+source .venv/bin/activate
+python -m pip install -r requirements.txt
+```
+
+Select the root `.venv` as your VS Code notebook kernel. Use `$...$` for inline equations and `$$...$$` for display equations. See the [VS Code setup guide](tools/VSCODE_AND_NOTEBOOK_PUBLISHING.md) for kernel registration and rendering instructions.

@@ -1,0 +1,8 @@
+# Downloaded source data and generated bundles
+data/*.csv
+artifacts/*.zip
+
+# Local caches
+__pycache__/
+.ipynb_checkpoints/
+.DS_Store

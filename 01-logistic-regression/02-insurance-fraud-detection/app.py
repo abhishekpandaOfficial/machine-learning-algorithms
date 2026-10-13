@@ -1,200 +1,170 @@
-from pathlib import Path
+from __future__ import annotations
+
+import base64
 import json
-import numpy as np
+from pathlib import Path
+
+import joblib
 import pandas as pd
 import streamlit as st
-import joblib
-import sklearn
+from PIL import Image
 
 ROOT = Path(__file__).resolve().parent
-# Support both the intended project root and the currently nested folder layout.
-NESTED_PROJECT_DIR = ROOT / "02-insurance-fraud-logistic-regression"
-if not (ROOT / "insurance_logistic_regression.ipynb").exists() and (NESTED_PROJECT_DIR / "insurance_logistic_regression.ipynb").exists():
-    ROOT = NESTED_PROJECT_DIR
-# Artifacts are currently stored in the parent insurance project folder.
-# Keep a fallback to the local folder for future clean organization.
-LOCAL_ARTIFACT_DIR = ROOT / "artifacts"
-PARENT_ARTIFACT_DIR = ROOT.parent / "artifacts"
-
-ARTIFACT_DIR = (
-    PARENT_ARTIFACT_DIR
-    if all(
-        (PARENT_ARTIFACT_DIR / name).exists()
-        for name in [
-            "insurance_fraud_pipeline.joblib",
-            "decision_threshold.joblib",
-            "model_metadata.json",
-        ]
-    )
-    else LOCAL_ARTIFACT_DIR
-)
-
+LOGO_PATH = ROOT / "assets" / "a-logo.png"
+ARTIFACT_DIR = ROOT / "artifacts"
+DATA_PATH = ROOT / "data" / "insurance_claims.csv"
 MODEL_PATH = ARTIFACT_DIR / "insurance_fraud_pipeline.joblib"
 THRESHOLD_PATH = ARTIFACT_DIR / "decision_threshold.joblib"
 METADATA_PATH = ARTIFACT_DIR / "model_metadata.json"
 
-st.set_page_config(page_title="Insurance Fraud Detection", page_icon="🛡️", layout="wide")
-st.title("🛡️ Insurance Fraud Detection")
-st.caption("Logistic Regression · Educational demonstration")
+st.set_page_config(page_title="Insurance Claim Review Studio", page_icon=Image.open(LOGO_PATH), layout="wide", initial_sidebar_state="expanded")
 
-st.warning(
-    "Educational use only. This model predicts a historical label, not proven fraud. "
-    "Do not use it to deny claims, determine premiums, or make automated decisions about people."
-)
+st.markdown("""
+<style>
+.stApp {background:linear-gradient(180deg,#fff 0,#fff7f8 46%,#fff 100%)}
+.block-container {max-width:1320px;padding-top:1.5rem;padding-bottom:4rem}
+.brand-hero {display:flex;gap:1.25rem;align-items:center;padding:1.65rem 1.8rem;border-radius:22px;background:linear-gradient(125deg,#4c0519,#9f1239 48%,#e11d48);color:white;box-shadow:0 18px 45px rgba(136,19,55,.22)}
+.brand-hero img {width:78px;height:78px;object-fit:contain;border-radius:18px;background:white;padding:7px}
+.brand-hero h1 {color:white;margin:0;font-size:clamp(1.8rem,4vw,2.65rem);line-height:1.05}
+.brand-hero p {color:#ffe4e6;margin:.5rem 0 0;max-width:780px}.eyebrow {color:#fecdd3;text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;font-weight:800}
+div[data-testid="stMetric"],div[data-testid="stForm"] {background:white;border:1px solid #fecdd3;border-radius:16px;padding:1rem}
+button[kind="primary"] {background:#be123c!important;border-color:#be123c!important;border-radius:999px!important}.stDownloadButton button{border-radius:999px!important}
+[data-testid="stSidebar"] {background:#fff7f8;border-right:1px solid #fecdd3}
+</style>
+""", unsafe_allow_html=True)
 
-@st.cache_resource
-def load_artifacts():
-    missing = [p.name for p in (MODEL_PATH, THRESHOLD_PATH, METADATA_PATH) if not p.exists()]
+
+@st.cache_resource(show_spinner="Loading the claim-review model...")
+def load_assets():
+    missing = [path.name for path in (MODEL_PATH, THRESHOLD_PATH, METADATA_PATH) if not path.exists()]
     if missing:
-        raise FileNotFoundError(
-            "Missing artifacts: " + ", ".join(missing) +
-            ". Run the notebook through the artifact-saving section first."
-        )
-    model = joblib.load(MODEL_PATH)  # Only load artifacts from a trusted project source.
-    threshold = float(joblib.load(THRESHOLD_PATH))
-    metadata = json.loads(METADATA_PATH.read_text())
-    return model, threshold, metadata
+        raise FileNotFoundError("Missing model files: " + ", ".join(missing) + ". Run the notebook first.")
+    return joblib.load(MODEL_PATH), float(joblib.load(THRESHOLD_PATH)), json.loads(METADATA_PATH.read_text(encoding="utf-8"))
 
-try:
-    model, default_threshold, metadata = load_artifacts()
-except Exception as exc:
-    st.error(f"The prediction service could not start: {exc}")
-    st.info("Run insurance_logistic_regression.ipynb and place its artifacts in the artifacts/ folder.")
-    st.stop()
 
-if metadata.get("sklearn_version") != sklearn.__version__:
-    st.error(
-        f"Version mismatch: model trained with scikit-learn {metadata.get('sklearn_version')}, "
-        f"app has {sklearn.__version__}. Install the matching requirements and retrain if needed."
-    )
-    st.stop()
+@st.cache_data(show_spinner=False)
+def load_reference_data() -> pd.DataFrame:
+    return pd.read_csv(DATA_PATH) if DATA_PATH.exists() else pd.DataFrame()
+
+
+model, threshold, metadata = load_assets()
+reference = load_reference_data()
+features = metadata["feature_columns"]
+numeric_features = set(metadata["numeric_features"])
+categorical_features = set(metadata["categorical_features"])
+
+logo = "data:image/png;base64," + base64.b64encode(LOGO_PATH.read_bytes()).decode("ascii")
+st.markdown(f"""<section class="brand-hero"><img src="{logo}" alt="A brand logo"><div><div class="eyebrow">Logistic Regression · Claim analytics</div><h1>Insurance Claim Review Studio</h1><p>Explore the dataset's reported-fraud label with guided choices, clear explanations, and downloadable results.</p></div></section>""", unsafe_allow_html=True)
 
 with st.sidebar:
-    st.header("Model information")
-    st.write("**Algorithm:** Logistic Regression")
-    st.write(f"**Training scikit-learn:** {metadata.get('sklearn_version')}")
-    st.write(f"**Dataset rows:** training source snapshot SHA-256 `{metadata.get('dataset_sha256', '')[:12]}…`")
-    threshold = st.slider("Classification threshold", 0.05, 0.95, float(default_threshold), 0.05)
-    st.caption("Changing the threshold changes the class label, not the predicted probability.")
+    st.image(LOGO_PATH, width=74)
+    st.markdown("### Claim Review Studio")
+    page = st.radio("Choose a workspace", ["Claim check", "Batch scoring", "Model performance", "About & limitations"])
+    st.divider()
+    st.metric("Decision threshold", f"{threshold:.0%}")
+    st.warning("Educational demonstration only. A model score is not proof of fraud and must not be used to deny a claim.")
 
-tab_predict, tab_batch, tab_metrics, tab_about = st.tabs(
-    ["Single prediction", "Batch CSV", "Model evaluation", "About & limitations"]
-)
+LABELS = {
+    "months_as_customer":"Months as a customer","age":"Customer age","policy_state":"Policy state","policy_csl":"Coverage limit","policy_deductable":"Policy deductible","policy_annual_premium":"Annual premium","umbrella_limit":"Umbrella coverage limit","insured_sex":"Customer gender","insured_education_level":"Education level","insured_occupation":"Occupation","insured_hobbies":"Primary hobby","insured_relationship":"Relationship on policy","capital-gains":"Capital gains","capital-loss":"Capital loss","incident_type":"Incident type","collision_type":"Collision type","incident_severity":"Incident severity","authorities_contacted":"Authority contacted","incident_state":"Incident state","incident_city":"Incident city","incident_hour_of_the_day":"Incident hour","number_of_vehicles_involved":"Vehicles involved","property_damage":"Property damage reported","bodily_injuries":"Bodily injuries","witnesses":"Witnesses","police_report_available":"Police report available","total_claim_amount":"Total claim amount","injury_claim":"Injury claim amount","property_claim":"Property claim amount","vehicle_claim":"Vehicle claim amount","auto_make":"Vehicle make","auto_model":"Vehicle model","auto_year":"Vehicle year",
+}
+SECTIONS = {
+    "Customer and policy":["months_as_customer","age","policy_state","policy_csl","policy_deductable","policy_annual_premium","umbrella_limit","insured_sex","insured_education_level","insured_occupation","insured_hobbies","insured_relationship"],
+    "Incident details":["incident_type","collision_type","incident_severity","authorities_contacted","incident_state","incident_city","incident_hour_of_the_day","number_of_vehicles_involved","property_damage","bodily_injuries","witnesses","police_report_available"],
+    "Claim amounts":["capital-gains","capital-loss","total_claim_amount","injury_claim","property_claim","vehicle_claim"],
+    "Vehicle":["auto_make","auto_model","auto_year"],
+}
 
-feature_columns = metadata["feature_columns"]
-numeric_features = metadata.get("numeric_features", [])
-categorical_features = metadata.get("categorical_features", [])
 
-def validate_frame(frame):
-    missing = [c for c in feature_columns if c not in frame.columns]
-    extra = [c for c in frame.columns if c not in feature_columns]
-    if missing:
-        raise ValueError("Missing required columns: " + ", ".join(missing))
-    if extra:
-        st.info("Extra columns will be ignored: " + ", ".join(extra[:20]))
-    clean = frame[feature_columns].copy()
-    for col in numeric_features:
-        clean[col] = pd.to_numeric(clean[col], errors="coerce")
-    if clean[numeric_features].isna().all(axis=None) if numeric_features else False:
-        raise ValueError("All numeric inputs are missing or invalid.")
-    return clean
+def category_options(column: str) -> list[str]:
+    if column in reference.columns:
+        return sorted(reference[column].dropna().astype(str).unique().tolist())
+    return ["Unknown"]
 
-with tab_predict:
-    st.subheader("Enter claim attributes")
-    st.write("Fields reflect the dataset schema. The app starts with a representative row; edit values before prediction.")
-    # Initialize defaults from a blank typed row; categorical values use a known source category if available.
-    default_row = {}
-    for col in feature_columns:
-        if col in numeric_features:
-            default_row[col] = 0.0
-        else:
-            default_row[col] = ""
-    with st.form("single_prediction_form"):
-        edited = {}
-        cols = st.columns(2)
-        for i, col in enumerate(feature_columns):
-            with cols[i % 2]:
-                if col in numeric_features:
-                    edited[col] = st.number_input(col, value=float(default_row[col]), key=f"single_{col}")
-                else:
-                    edited[col] = st.text_input(col, value="", key=f"single_{col}")
-        submitted = st.form_submit_button("Predict probability")
+
+def numeric_default(column: str) -> float:
+    if column in reference.columns:
+        values = pd.to_numeric(reference[column], errors="coerce").dropna()
+        if not values.empty:
+            return float(values.median())
+    return 0.0
+
+
+def render_claim_form() -> dict[str, object]:
+    values: dict[str, object] = {}
+    integer_fields = {"months_as_customer","age","incident_hour_of_the_day","number_of_vehicles_involved","bodily_injuries","witnesses","auto_year"}
+    for section, columns in SECTIONS.items():
+        with st.expander(section, expanded=section in {"Customer and policy","Incident details"}):
+            grid = st.columns(3)
+            for index, column in enumerate(columns):
+                with grid[index % 3]:
+                    label = LABELS.get(column, column.replace("_", " ").title())
+                    if column in categorical_features:
+                        values[column] = st.selectbox(label, category_options(column), key=f"claim_{column}")
+                    else:
+                        default = numeric_default(column)
+                        is_integer = column in integer_fields
+                        values[column] = st.number_input(label, value=int(default) if is_integer else float(default), step=1 if is_integer else 100.0, key=f"claim_{column}")
+    return values
+
+
+if page == "Claim check":
+    st.subheader("Build a claim profile")
+    st.caption("Dropdowns contain categories from the documented training snapshot. Numeric fields start at representative median values.")
+    with st.form("claim_form"):
+        values = render_claim_form()
+        submitted = st.form_submit_button("Estimate reported-fraud signal", type="primary", use_container_width=True)
     if submitted:
-        try:
-            row = pd.DataFrame([edited])
-            row = validate_frame(row)
-            # Empty categorical values are treated as missing; the fitted imputer handles them.
-            for col in categorical_features:
-                row[col] = row[col].replace("", np.nan)
-            probability = float(model.predict_proba(row)[0, 1])
-            prediction = int(probability >= threshold)
-            c1, c2 = st.columns(2)
-            c1.metric("Probability of reported fraud label", f"{probability:.1%}")
-            c2.metric("Threshold-based class", "Reported fraud (1)" if prediction else "Not reported fraud (0)")
-            st.progress(min(max(probability, 0.0), 1.0))
-            st.caption("This score is a model estimate for the dataset label, not a finding of actual fraud.")
-        except Exception as exc:
-            st.error(f"Input validation/prediction failed: {exc}")
+        row = pd.DataFrame([{column: values[column] for column in features}])
+        probability = float(model.predict_proba(row)[0, 1])
+        predicted = int(probability >= threshold)
+        st.divider()
+        a,b,c = st.columns(3)
+        a.metric("Estimated label probability", f"{probability:.1%}")
+        b.metric("Saved threshold", f"{threshold:.0%}")
+        c.metric("Model class", "Reported fraud label" if predicted else "No reported fraud label")
+        st.progress(probability, text=f"Estimated probability for the dataset's positive label: {probability:.1%}")
+        st.warning("This result predicts a historical dataset label. It does not establish whether fraud occurred.")
+        report = row.assign(reported_fraud_probability=probability, predicted_class=predicted)
+        st.download_button("Download this result", report.to_csv(index=False), "claim_review_result.csv", "text/csv")
 
-with tab_batch:
-    st.subheader("Score a CSV file")
-    st.write("Upload a CSV containing the model's expected feature columns. The app validates required columns.")
-    uploaded = st.file_uploader("Choose CSV", type=["csv"])
-    if uploaded:
+elif page == "Batch scoring":
+    st.subheader("Score a claim file")
+    st.write("Upload a CSV with the expected model columns. Extra columns are preserved in the downloaded output.")
+    st.download_button("Download CSV template", pd.DataFrame(columns=features).to_csv(index=False), "insurance_claim_template.csv", "text/csv")
+    upload = st.file_uploader("Choose a CSV file", type="csv")
+    if upload is not None:
         try:
-            batch = pd.read_csv(uploaded)
-            st.write(f"Uploaded rows: {len(batch):,}")
-            if len(batch) > 10000:
-                st.error("Maximum 10,000 rows per upload for this demo.")
+            batch = pd.read_csv(upload)
+            missing = [column for column in features if column not in batch.columns]
+            if missing:
+                st.error("Missing columns: " + ", ".join(missing))
+            elif len(batch) > 10_000:
+                st.error("This educational app accepts up to 10,000 rows per file.")
             else:
-                clean = validate_frame(batch)
-                for col in categorical_features:
-                    clean[col] = clean[col].replace("", np.nan)
+                clean = batch[features].copy()
+                for column in numeric_features:
+                    clean[column] = pd.to_numeric(clean[column], errors="coerce")
                 probabilities = model.predict_proba(clean)[:, 1]
-                scored = batch.copy()
-                scored["predicted_probability_reported_fraud"] = probabilities
-                scored["predicted_class"] = (probabilities >= threshold).astype(int)
-                st.dataframe(scored.head(100), use_container_width=True)
-                st.download_button(
-                    "Download scored CSV",
-                    scored.to_csv(index=False).encode("utf-8"),
-                    file_name="insurance_fraud_predictions.csv",
-                    mime="text/csv"
-                )
-                fig, ax = __import__("matplotlib.pyplot", fromlist=["pyplot"]).subplots()
-                ax.hist(probabilities, bins=20)
-                ax.set_title("Predicted probability distribution")
-                ax.set_xlabel("Probability")
-                ax.set_ylabel("Claims")
-                st.pyplot(fig)
+                result = batch.copy()
+                result["reported_fraud_probability"] = probabilities
+                result["predicted_class"] = (probabilities >= threshold).astype(int)
+                st.success(f"Scored {len(result):,} claim rows.")
+                st.dataframe(result.head(100), use_container_width=True)
+                st.download_button("Download scored CSV", result.to_csv(index=False), "insurance_claim_predictions.csv", "text/csv")
         except Exception as exc:
-            st.error(f"Could not score uploaded CSV: {exc}")
+            st.error(f"Could not score this file: {exc}")
 
-with tab_metrics:
-    st.subheader("Held-out test metrics")
-    metrics = metadata.get("metrics_test", {})
-    if metrics:
-        cols = st.columns(min(3, len(metrics)))
-        for i, (name, value) in enumerate(metrics.items()):
-            cols[i % len(cols)].metric(name.replace("_", " ").title(), f"{value:.3f}")
-        st.caption("Metrics are from the notebook's held-out test set at the saved threshold. They are not independently validated production performance.")
-    st.info("Confusion matrix and ROC/precision-recall graphs are generated in the training notebook. This app does not fabricate or reconstruct those curves from summary metrics.")
+elif page == "Model performance":
+    st.subheader("Held-out notebook metrics")
+    columns = st.columns(3)
+    for index,(name,value) in enumerate(metadata.get("metrics_test", {}).items()):
+        columns[index % 3].metric(name.replace("_", " ").title(), f"{value:.3f}")
+    st.info("These metrics describe one held-out split from the educational notebook. They are not independently validated production performance.")
 
-with tab_about:
+else:
     st.subheader("Dataset and limitations")
-    st.markdown(f"""
-    - **Dataset record:** [Mendeley Data](https://data.mendeley.com/datasets/992mh7dk9y/2)
-    - **CSV source:** [GitHub dataset](https://github.com/mwitiderrick/insurancedata/blob/master/insurance_claims.csv)
-    - **License reported by source:** CC BY 4.0; verify the record and provide attribution before redistribution.
-    - **Target:** `{metadata.get('target_column')}`
-    - **Positive class:** {metadata.get('positive_class_label')}
-    - **Random seed:** {metadata.get('random_state')}
-    - **Test size:** {metadata.get('test_size')}
-    """)
-    st.markdown("""
-    **Important limitations**
-    - Historical labels may reflect investigation processes, not independently confirmed fraud.
-    - Some columns may be post-event or post-investigation. Conduct a documented leakage review before using this model for any prospective task.
-    - Dataset provenance and representativeness may be limited; this is not validated for real insurance operations.
-    - Do not use this demo to deny claims, change premiums, or make consequential decisions about individuals.
-    """)
+    st.markdown(f"- **Target:** `{metadata.get('target_column')}`\n- **Positive label:** {metadata.get('positive_class_label')}\n- **Model inputs:** {len(features)}\n- **Dataset source:** [Documented source record]({metadata.get('dataset_record')})")
+    st.error("Historical labels may reflect investigation and reporting practices. Some fields may contain post-event information and require a documented leakage review.")
+    st.write("Do not use this demonstration to deny claims, change premiums, accuse a person, or automate any consequential decision.")
+
+st.caption("Built with Streamlit · Crimson A brand system · Python 3.12")

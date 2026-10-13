@@ -43,7 +43,9 @@ streamlit run 02-decision-tree/01-telecom-customer-churn/app.py
 
 ## Streamlit deployment
 
-**Streamlit app:** `[Add deployed Streamlit URL here]`
+**Streamlit apps:** [![Streamlit](images/streamlit_logo.svg)](https://share.streamlit.io/user/abhishekpandaofficial)
+
+Profile and app directory: [https://share.streamlit.io/user/abhishekpandaofficial](https://share.streamlit.io/user/abhishekpandaofficial)
 
 ## Book checklist
 

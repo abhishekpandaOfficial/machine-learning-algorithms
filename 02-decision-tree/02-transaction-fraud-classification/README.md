@@ -45,7 +45,9 @@ streamlit run 02-decision-tree/02-transaction-fraud-classification/app.py
 
 The notebook artifact is ready for a reviewed serving layer. Add the deployed URL here after deployment:
 
-**Streamlit app:** `[Add deployed Streamlit URL here]`
+**Streamlit apps:** [![Streamlit](assets/streamlit_logo.svg)](https://share.streamlit.io/user/abhishekpandaofficial)
+
+Profile and app directory: [https://share.streamlit.io/user/abhishekpandaofficial](https://share.streamlit.io/user/abhishekpandaofficial)
 
 The current `app.py` remains planning-only until its input contract, artifact loading, safety copy and tests are updated for the saved model.
 

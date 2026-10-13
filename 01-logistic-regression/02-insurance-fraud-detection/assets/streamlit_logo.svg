@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 92" role="img" aria-labelledby="title">
+  <title id="title">Streamlit</title>
+  <rect width="320" height="92" rx="18" fill="#ff4b4b"/>
+  <path d="M42 22h42L63 46l21 24H42l-20-24z" fill="white"/>
+  <text x="102" y="60" font-family="Arial, sans-serif" font-size="35" font-weight="700" fill="white">Streamlit</text>
+</svg>

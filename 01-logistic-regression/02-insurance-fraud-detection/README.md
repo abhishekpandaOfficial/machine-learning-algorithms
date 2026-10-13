@@ -31,7 +31,9 @@ Review the model limitations, data provenance and error trade-offs before sharin
 
 ## Streamlit deployment
 
-**Streamlit app:** `[Add deployed Streamlit URL here]`
+**Streamlit apps:** [![Streamlit](assets/streamlit_logo.svg)](https://share.streamlit.io/user/abhishekpandaofficial)
+
+Profile and app directory: [https://share.streamlit.io/user/abhishekpandaofficial](https://share.streamlit.io/user/abhishekpandaofficial)
 
 ## Book checklist
 

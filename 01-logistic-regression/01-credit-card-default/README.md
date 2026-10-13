@@ -40,7 +40,9 @@ streamlit run 01-logistic-regression/01-credit-card-default/app.py
 
 ## Streamlit deployment
 
-**Streamlit app:** `[Add deployed Streamlit URL here]`
+**Streamlit apps:** [![Streamlit](assets/streamlit_logo.svg)](https://share.streamlit.io/user/abhishekpandaofficial)
+
+Profile and app directory: [https://share.streamlit.io/user/abhishekpandaofficial](https://share.streamlit.io/user/abhishekpandaofficial)
 
 ## Book checklist
 

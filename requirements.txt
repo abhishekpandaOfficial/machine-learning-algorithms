@@ -2,4 +2,5 @@
 -r 01-logistic-regression/01-credit-card-default/requirements.txt
 -r 01-logistic-regression/02-insurance-fraud-detection/requirements.txt
 -r 02-decision-tree/01-telecom-customer-churn/requirements.txt
+-r 02-decision-tree/02-transaction-fraud-classification/requirements.txt
 seaborn==0.13.2

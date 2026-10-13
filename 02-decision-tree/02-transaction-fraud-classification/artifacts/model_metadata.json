@@ -1,0 +1,28 @@
+{
+  "algorithm": "DecisionTreeClassifier",
+  "project": "transaction-fraud-classification",
+  "target_column": "is_fraud",
+  "positive_class": "fraud",
+  "input_features": [
+    "amount",
+    "channel",
+    "merchant_category",
+    "distance_from_usual_km",
+    "device_age_days",
+    "transactions_last_hour",
+    "account_age_days",
+    "authentication",
+    "is_weekend"
+  ],
+  "classes": [
+    "fraud",
+    "legitimate"
+  ],
+  "selected_threshold": 0.9099999999999999,
+  "illustrative_false_negative_cost": 10,
+  "illustrative_false_positive_cost": 1,
+  "sklearn_version": "1.6.1",
+  "python_version": "3.12.13",
+  "dataset": "deterministic synthetic transactions; see notebook for public dataset links",
+  "educational_only": true
+}

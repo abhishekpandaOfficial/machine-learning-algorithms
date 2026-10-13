@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Local data: verify licence before considering redistribution
+data/*
+!data/README.md
+
+# Local experiment tracking
+mlruns/
+.mlflow/
+
+# Generated model artifacts may be committed only after review
+# artifacts/*.joblib
+# artifacts/model_metadata.json
+
+# Notebook checkpoints
+.ipynb_checkpoints/
+
+# OS/editor
+.DS_Store
+.vscode/

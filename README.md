@@ -6,6 +6,10 @@
 
 ### A structured, reproducible learning laboratory for machine learning
 
+<p align="center">
+  <img src="assets/machine_learning_life_cycle_animated.gif" alt="Animated machine learning life cycle showing the journey from problem definition through monitoring and maintenance" width="900">
+</p>
+
 <p>
   <a href="https://github.com/abhishekpandaOfficial/machine-learning-algorithms/stargazers"><img src="https://img.shields.io/github/stars/abhishekpandaOfficial/machine-learning-algorithms?style=for-the-badge&logo=github&label=Stars" alt="GitHub stars"></a>
   <a href="https://github.com/abhishekpandaOfficial/machine-learning-algorithms/network/members"><img src="https://img.shields.io/github/forks/abhishekpandaOfficial/machine-learning-algorithms?style=for-the-badge&logo=github&label=Forks" alt="GitHub forks"></a>
@@ -41,15 +45,15 @@
 
 ## Repository at a glance
 
-| Area | Purpose | Status |
-|---|---|---|
-| [Supervised ML](Supervised-ML/README.md) | Learn from labelled examples | Active |
-| [Classification](Supervised-ML/Classification/README.md) | Predict classes or class probabilities | Active |
-| [Regression](Supervised-ML/Regression/README.md) | Predict continuous outcomes | Foundation |
-| [Unsupervised ML](Unsupervised-ML/README.md) | Discover structure without labels | Planned |
-| [Semi-Supervised ML](Semi-Supervised-ML/README.md) | Combine labelled and unlabelled data | Planned |
-| [Reinforcement Learning](Reinforcement-Learning/README.md) | Learn policies from rewards | Planned |
-| [HTML and PDF library](Algo-HTMLs/README.md) · [PDFs](Algo-PDFs/README.md) | Read and print executed chapters | Published |
+| Area                                                                       | Purpose                                | Status     |
+| -------------------------------------------------------------------------- | -------------------------------------- | ---------- |
+| [Supervised ML](Supervised-ML/README.md)                                   | Learn from labelled examples           | Active     |
+| [Classification](Supervised-ML/Classification/README.md)                   | Predict classes or class probabilities | Active     |
+| [Regression](Supervised-ML/Regression/README.md)                           | Predict continuous outcomes            | Foundation |
+| [Unsupervised ML](Unsupervised-ML/README.md)                               | Discover structure without labels      | Planned    |
+| [Semi-Supervised ML](Semi-Supervised-ML/README.md)                         | Combine labelled and unlabelled data   | Planned    |
+| [Reinforcement Learning](Reinforcement-Learning/README.md)                 | Learn policies from rewards            | Planned    |
+| [HTML and PDF library](Algo-HTMLs/README.md) · [PDFs](Algo-PDFs/README.md) | Read and print executed chapters       | Published  |
 
 ## Learning map
 
@@ -71,19 +75,19 @@ The folder structure is intentionally modular: each algorithm track owns its dom
 
 ### Supervised learning
 
-| Family | Algorithms | Track |
-|---|---|---|
+| Family         | Algorithms                                                                                                                     | Track                                                    |
+| -------------- | ------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------- |
 | Classification | Logistic Regression, Decision Tree, k-Nearest Neighbors, Naive Bayes, Support Vector Machine, Random Forest, Gradient Boosting | [Classification](Supervised-ML/Classification/README.md) |
-| Regression | Linear Regression, Ridge, Lasso, Elastic Net, Decision Tree Regressor, Random Forest Regressor, Gradient Boosting Regressor | [Regression](Supervised-ML/Regression/README.md) |
+| Regression     | Linear Regression, Ridge, Lasso, Elastic Net, Decision Tree Regressor, Random Forest Regressor, Gradient Boosting Regressor    | [Regression](Supervised-ML/Regression/README.md)         |
 
 ### Unsupervised learning
 
-| Family | Algorithms and methods | Track |
-|---|---|---|
-| Clustering | k-Means, Hierarchical Clustering, DBSCAN, Gaussian Mixture Models | [Unsupervised ML](Unsupervised-ML/README.md) |
-| Representation | PCA, factor analysis, manifold learning | [Unsupervised ML](Unsupervised-ML/README.md) |
-| Anomaly detection | Isolation Forest, Local Outlier Factor, autoencoders | [Unsupervised ML](Unsupervised-ML/README.md) |
-| Association | Apriori and association-rule mining | [Unsupervised ML](Unsupervised-ML/README.md) |
+| Family            | Algorithms and methods                                            | Track                                        |
+| ----------------- | ----------------------------------------------------------------- | -------------------------------------------- |
+| Clustering        | k-Means, Hierarchical Clustering, DBSCAN, Gaussian Mixture Models | [Unsupervised ML](Unsupervised-ML/README.md) |
+| Representation    | PCA, factor analysis, manifold learning                           | [Unsupervised ML](Unsupervised-ML/README.md) |
+| Anomaly detection | Isolation Forest, Local Outlier Factor, autoencoders              | [Unsupervised ML](Unsupervised-ML/README.md) |
+| Association       | Apriori and association-rule mining                               | [Unsupervised ML](Unsupervised-ML/README.md) |
 
 ### Semi-supervised learning
 
@@ -95,12 +99,12 @@ Multi-armed bandits, Q-Learning, SARSA, Deep Q-Networks, policy gradients, and a
 
 ## Completed projects
 
-| Algorithm | Project | Notebook | Colab | App and tracking |
-|---|---|---|---|---|
-| Logistic Regression | [Credit Card Default](Supervised-ML/Classification/Logistic-Regression/01-credit-card-default/README.md) | [Notebook](Supervised-ML/Classification/Logistic-Regression/01-credit-card-default/logistic_regression_enterprise.ipynb) | [Open](https://colab.research.google.com/github/abhishekpandaOfficial/machine-learning-algorithms/blob/master/Supervised-ML/Classification/Logistic-Regression/01-credit-card-default/logistic_regression_enterprise.ipynb) | [Streamlit profile](https://share.streamlit.io/user/abhishekpandaofficial) · [MLflow placeholder](#mlflow-experiment-links) |
-| Logistic Regression | [Insurance Fraud Detection](Supervised-ML/Classification/Logistic-Regression/02-insurance-fraud-detection/README.md) | [Notebook](Supervised-ML/Classification/Logistic-Regression/02-insurance-fraud-detection/insurance_logistic_regression.ipynb) | [Open](https://colab.research.google.com/github/abhishekpandaOfficial/machine-learning-algorithms/blob/master/Supervised-ML/Classification/Logistic-Regression/02-insurance-fraud-detection/insurance_logistic_regression.ipynb) | [Streamlit profile](https://share.streamlit.io/user/abhishekpandaofficial) · [MLflow placeholder](#mlflow-experiment-links) |
-| Decision Tree | [Telecom Customer Churn](Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/README.md) | [Notebook](Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/decision_tree_churn.ipynb) | [Open](https://colab.research.google.com/github/abhishekpandaOfficial/machine-learning-algorithms/blob/master/Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/decision_tree_churn.ipynb) | [Streamlit profile](https://share.streamlit.io/user/abhishekpandaofficial) · [MLflow placeholder](#mlflow-experiment-links) |
-| Decision Tree | [Transaction Fraud Classification](Supervised-ML/Classification/Decision-Tree/02-transaction-fraud-classification/README.md) | [Notebook](Supervised-ML/Classification/Decision-Tree/02-transaction-fraud-classification/decision_tree_fraud.ipynb) | [Open](https://colab.research.google.com/github/abhishekpandaOfficial/machine-learning-algorithms/blob/master/Supervised-ML/Classification/Decision-Tree/02-transaction-fraud-classification/decision_tree_fraud.ipynb) | [Streamlit profile](https://share.streamlit.io/user/abhishekpandaofficial) · [MLflow placeholder](#mlflow-experiment-links) |
+| Algorithm           | Project                                                                                                                      | Notebook                                                                                                                      | Colab                                                                                                                                                                                                                            | App and tracking                                                                                                            |
+| ------------------- | ---------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------- |
+| Logistic Regression | [Credit Card Default](Supervised-ML/Classification/Logistic-Regression/01-credit-card-default/README.md)                     | [Notebook](Supervised-ML/Classification/Logistic-Regression/01-credit-card-default/logistic_regression_enterprise.ipynb)      | [Open](https://colab.research.google.com/github/abhishekpandaOfficial/machine-learning-algorithms/blob/master/Supervised-ML/Classification/Logistic-Regression/01-credit-card-default/logistic_regression_enterprise.ipynb)      | [Streamlit profile](https://share.streamlit.io/user/abhishekpandaofficial) · [MLflow placeholder](#mlflow-experiment-links) |
+| Logistic Regression | [Insurance Fraud Detection](Supervised-ML/Classification/Logistic-Regression/02-insurance-fraud-detection/README.md)         | [Notebook](Supervised-ML/Classification/Logistic-Regression/02-insurance-fraud-detection/insurance_logistic_regression.ipynb) | [Open](https://colab.research.google.com/github/abhishekpandaOfficial/machine-learning-algorithms/blob/master/Supervised-ML/Classification/Logistic-Regression/02-insurance-fraud-detection/insurance_logistic_regression.ipynb) | [Streamlit profile](https://share.streamlit.io/user/abhishekpandaofficial) · [MLflow placeholder](#mlflow-experiment-links) |
+| Decision Tree       | [Telecom Customer Churn](Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/README.md)                     | [Notebook](Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/decision_tree_churn.ipynb)                    | [Open](https://colab.research.google.com/github/abhishekpandaOfficial/machine-learning-algorithms/blob/master/Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/decision_tree_churn.ipynb)                    | [Streamlit profile](https://share.streamlit.io/user/abhishekpandaofficial) · [MLflow placeholder](#mlflow-experiment-links) |
+| Decision Tree       | [Transaction Fraud Classification](Supervised-ML/Classification/Decision-Tree/02-transaction-fraud-classification/README.md) | [Notebook](Supervised-ML/Classification/Decision-Tree/02-transaction-fraud-classification/decision_tree_fraud.ipynb)          | [Open](https://colab.research.google.com/github/abhishekpandaOfficial/machine-learning-algorithms/blob/master/Supervised-ML/Classification/Decision-Tree/02-transaction-fraud-classification/decision_tree_fraud.ipynb)          | [Streamlit profile](https://share.streamlit.io/user/abhishekpandaofficial) · [MLflow placeholder](#mlflow-experiment-links) |
 
 ## Project deliverables
 
@@ -119,12 +123,12 @@ Browse the [HTML library](Algo-HTMLs/README.md) or [PDF library](Algo-PDFs/READM
 
 ## Notebook and platform links
 
-| Platform | Link | Use |
-|---|---|---|
-| Google Colab | [Repository launcher](https://colab.research.google.com/github/abhishekpandaOfficial/machine-learning-algorithms) | Run notebooks interactively |
-| Streamlit | [Author profile](https://share.streamlit.io/user/abhishekpandaofficial) | Open deployed applications |
-| MLflow | [Add tracking workspace URL](#mlflow-experiment-links) | Review experiments after deployment |
-| GitHub | [Repository](https://github.com/abhishekpandaOfficial/machine-learning-algorithms) | Source, issues, and version history |
+| Platform     | Link                                                                                                              | Use                                 |
+| ------------ | ----------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| Google Colab | [Repository launcher](https://colab.research.google.com/github/abhishekpandaOfficial/machine-learning-algorithms) | Run notebooks interactively         |
+| Streamlit    | [Author profile](https://share.streamlit.io/user/abhishekpandaofficial)                                           | Open deployed applications          |
+| MLflow       | [Add tracking workspace URL](#mlflow-experiment-links)                                                            | Review experiments after deployment |
+| GitHub       | [Repository](https://github.com/abhishekpandaOfficial/machine-learning-algorithms)                                | Source, issues, and version history |
 
 Colab notebooks that depend on local artifacts or data may require running the project from a cloned repository or uploading the required files first.
 
@@ -201,11 +205,11 @@ Read the [publishing guide](tools/VSCODE_AND_NOTEBOOK_PUBLISHING.md) for noteboo
 
 MLflow links are intentionally left as deployment placeholders until tracking servers are provisioned:
 
-| Project | Tracking URI | Status |
-|---|---|---|
-| Credit Card Default | `ADD_MLFLOW_URL` | To be added |
-| Insurance Fraud Detection | `ADD_MLFLOW_URL` | To be added |
-| Telecom Customer Churn | `ADD_MLFLOW_URL` | To be added |
+| Project                          | Tracking URI     | Status      |
+| -------------------------------- | ---------------- | ----------- |
+| Credit Card Default              | `ADD_MLFLOW_URL` | To be added |
+| Insurance Fraud Detection        | `ADD_MLFLOW_URL` | To be added |
+| Telecom Customer Churn           | `ADD_MLFLOW_URL` | To be added |
 | Transaction Fraud Classification | `ADD_MLFLOW_URL` | To be added |
 
 ## Responsible use

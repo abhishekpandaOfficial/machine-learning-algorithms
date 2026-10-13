@@ -6,32 +6,33 @@ Build a book-ready, reproducible Decision Tree classification workflow for trans
 
 ![Transaction Fraud Classification hero](assets/transaction_fraud_hero.svg)
 
-## Dataset strategy and links
+## Real dataset and provenance
 
-The notebook uses a deterministic synthetic transaction dataset by default so the HTML/PDF exports run without gated downloads. Synthetic labels make this a controlled learning exercise; they are not evidence of real-world fraud-detection performance.
+The notebook and serving app now use the real [Credit Card Fraud Detection
+dataset](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud) published by
+the ULB Machine Learning Group. It contains 284,807 historical transactions,
+anonymised PCA features `V1`–`V28`, `Time`, `Amount`, and the binary `Class`
+target. The fraud rate is below 0.2%, so PR-AUC, recall, precision and
+threshold analysis are more informative than accuracy alone.
 
-Public datasets for a later, separately reviewed extension:
-
-- [ULB/Kaggle Credit Card Fraud Detection](https://www.kaggle.com/datasets/mlg-ulb/creditcardfraud)
-- [IEEE-CIS Fraud Detection](https://www.kaggle.com/competitions/ieee-fraud-detection)
-- [Fraud Detection Handbook](https://fraud-detection-handbook.github.io/fraud-detection-handbook/)
-
-Before downloading or redistributing any external dataset, verify its provenance, target definition, licence/terms, access requirements and feature leakage risks.
+The raw 144 MB CSV is deliberately ignored by Git. Download instructions,
+publisher attribution and redistribution guidance are in [`data/README.md`](data/README.md).
 
 ## Project files
 
-- `decision_tree_fraud.ipynb`: complete theory, mathematics, synthetic data generation, EDA, training, evaluation and deployment walkthrough.
+- `decision_tree_fraud.ipynb`: complete theory, mathematics, real-data audit, time-ordered training, evaluation and deployment walkthrough.
+- `train_model.py`: repeatable training entry point that records the dataset SHA-256 and holdout metrics.
 - `decision_tree_fraud.html`: browser export of the executed notebook.
 - `decision_tree_fraud.pdf`: printable export of the executed notebook.
 - `artifacts/`: fitted pipeline and metadata created by the notebook.
-- `app.py`: crimson-branded planning interface with guided synthetic-transaction controls and clear no-model disclaimer.
+- `app.py`: crimson-branded serving interface using the saved real-data model and explicit human-review disclaimer.
 - `requirements.txt` and this README: setup and usage instructions.
 
 ## Evaluation covered
 
 The notebook covers stratified splitting, a majority-class baseline, Gini impurity, confusion matrix, accuracy, precision, recall, F1, ROC-AUC, PR-AUC, threshold analysis and an illustrative false-negative/false-positive cost policy. It saves and reloads the complete preprocessing-and-model pipeline.
 
-## Run the planning app
+## Train and run the real-data app
 
 From the repository root:
 
@@ -41,25 +42,31 @@ python -m pip install -r Supervised-ML/Classification/Decision-Tree/02-transacti
 streamlit run Supervised-ML/Classification/Decision-Tree/02-transaction-fraud-classification/app.py
 ```
 
+To retrain after downloading the dataset:
+
+```bash
+python Supervised-ML/Classification/Decision-Tree/02-transaction-fraud-classification/train_model.py
+```
+
 ## Streamlit deployment
 
-The notebook artifact is ready for a reviewed serving layer. Add the deployed URL here after deployment:
+The serving app loads a trained artifact and displays a review signal. Add the deployed URL here after deployment:
 
 **Streamlit apps:** [![Streamlit](assets/streamlit_logo.svg)](https://share.streamlit.io/user/abhishekpandaofficial)
 
 Profile and app directory: [https://share.streamlit.io/user/abhishekpandaofficial](https://share.streamlit.io/user/abhishekpandaofficial)
 
-The current `app.py` remains planning-only until its input contract, artifact loading, safety copy and tests are updated for the saved model.
+The app is an educational demonstration. Its anonymised PCA inputs are not a substitute for a production feature contract or transaction-governance process.
 
 ## Final review checklist
 
 - [x] Theory and Decision Tree mathematics are explained.
-- [x] Synthetic dataset generation is deterministic and reproducible.
-- [x] Public dataset links and licensing cautions are documented.
+- [x] Real ULB/Kaggle dataset provenance and download instructions are documented.
+- [x] Dataset checksum and time-ordered holdout are recorded in model metadata.
 - [x] Leakage prevention and stratified splitting are demonstrated.
 - [x] Baseline and rare-event metrics are reported.
 - [x] Threshold and cost assumptions are explicit.
 - [x] Model and metadata artifacts are saved and reloaded.
-- [ ] Validate on an approved real dataset with time-based evaluation.
+- [x] Train and validate a Decision Tree on the approved real dataset.
 - [ ] Complete privacy, fairness, governance and security review.
-- [ ] Add and test the deployed Streamlit URL.
+- [ ] Add the deployed Streamlit URL.

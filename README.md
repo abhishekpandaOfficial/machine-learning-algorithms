@@ -39,6 +39,11 @@ For each project, the goal is to provide:
 
 See [the notebook publishing guide](tools/README.md) and use the [export script](tools/export_notebook.py). Exports must be generated and reviewed in an environment with the project's dependencies and data available before they are committed as public downloads.
 
+Centralized reviewed exports are also available in:
+
+- [Algo-HTMLs/](Algo-HTMLs/) for browser-readable notebook exports.
+- [Algo-PDFs/](Algo-PDFs/) for printable notebook exports.
+
 ## Local Python and math setup
 
 Use the shared Python **3.12** environment at the repository root:

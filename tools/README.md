@@ -47,6 +47,7 @@ The first run can take time because the notebook is executed and Chromium may ne
 - Check that no private data, credentials, tokens, or local machine paths are included.
 - Check PDF pagination before printing.
 - Commit the source notebook and the reviewed HTML/PDF exports to GitHub if you want them available as public downloads.
+- Keep centralized copies of reviewed exports in the root-level `Algo-HTMLs/<algorithm>/` and `Algo-PDFs/<algorithm>/` folders.
 - Rebuild exports whenever the notebook's content or results change.
 
 ## Important limitations

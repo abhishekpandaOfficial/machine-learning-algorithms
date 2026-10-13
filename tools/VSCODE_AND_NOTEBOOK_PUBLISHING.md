@@ -103,4 +103,5 @@ Plots generated in code cells are embedded in saved notebook outputs and therefo
 - Check HTML and PDF for missing images, clipped code, broken formulas and page breaks.
 - Run tests and verify the Streamlit app separately.
 - Commit the source notebook and only reviewed exports.
+- Copy reviewed HTML exports into `Algo-HTMLs/<algorithm>/` and reviewed PDF exports into `Algo-PDFs/<algorithm>/` so all algorithm downloads are collected at the repository root.
 - Never claim a deployment is public until the live URL has been tested.

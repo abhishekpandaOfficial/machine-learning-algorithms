@@ -22,9 +22,9 @@ From the repository root, activate the shared Python 3.12 environment and run th
 
 ```bash
 source .venv/bin/activate
-python -m pip install -r 01-logistic-regression/02-insurance-fraud-detection/requirements.txt
-jupyter lab 01-logistic-regression/02-insurance-fraud-detection/insurance_logistic_regression.ipynb
-streamlit run 01-logistic-regression/02-insurance-fraud-detection/app.py
+python -m pip install -r Supervised-ML/Classification/Logistic-Regression/02-insurance-fraud-detection/requirements.txt
+jupyter lab Supervised-ML/Classification/Logistic-Regression/02-insurance-fraud-detection/insurance_logistic_regression.ipynb
+streamlit run Supervised-ML/Classification/Logistic-Regression/02-insurance-fraud-detection/app.py
 ```
 
 Review the model limitations, data provenance and error trade-offs before sharing any result.

@@ -34,8 +34,8 @@ From the repository root:
 
 ```bash
 source .venv/bin/activate
-python -m pip install -r 01-logistic-regression/01-credit-card-default/requirements.txt
-streamlit run 01-logistic-regression/01-credit-card-default/app.py
+python -m pip install -r Supervised-ML/Classification/Logistic-Regression/01-credit-card-default/requirements.txt
+streamlit run Supervised-ML/Classification/Logistic-Regression/01-credit-card-default/app.py
 ```
 
 ## Streamlit deployment

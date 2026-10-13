@@ -65,12 +65,12 @@ Use **Run All**. Read all Markdown cells and inspect the outputs. Resolve any ce
 From the repository root:
 
 ```bash
-python tools/export_notebook.py "02-decision-tree/01-telecom-customer-churn/decision_tree_churn.ipynb"
+python tools/export_notebook.py "Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/decision_tree_churn.ipynb"
 ```
 
 The script executes a temporary copy (source notebook is not overwritten), then creates:
-- `02-decision-tree/01-telecom-customer-churn/decision_tree_churn.html`
-- `02-decision-tree/01-telecom-customer-churn/decision_tree_churn.pdf`
+- `Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/decision_tree_churn.html`
+- `Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/decision_tree_churn.pdf`
 
 The HTML export supports syntax highlighting and preserves cell outputs. The PDF uses nbconvert's WebPDF renderer (Chromium/Playwright). The first export may need to download Chromium.
 

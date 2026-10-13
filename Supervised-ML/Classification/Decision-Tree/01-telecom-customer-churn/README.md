@@ -37,8 +37,8 @@ From the repository root:
 
 ```bash
 source .venv/bin/activate
-python -m pip install -r 02-decision-tree/01-telecom-customer-churn/requirements.txt
-streamlit run 02-decision-tree/01-telecom-customer-churn/app.py
+python -m pip install -r Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/requirements.txt
+streamlit run Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/app.py
 ```
 
 ## Streamlit deployment

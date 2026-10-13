@@ -13,10 +13,10 @@ Classification predicts a discrete class, such as `fraud` versus `legitimate`, o
 
 ## Current projects
 
-- [Credit Default — Logistic Regression](../../01-logistic-regression/01-credit-card-default/README.md)
-- [Insurance Fraud — Logistic Regression](../../01-logistic-regression/02-insurance-fraud-detection/README.md)
-- [Telecom Customer Churn — Decision Tree](../../02-decision-tree/01-telecom-customer-churn/README.md)
-- [Transaction Fraud — Decision Tree](../../02-decision-tree/02-transaction-fraud-classification/README.md)
+- [Credit Default — Logistic Regression](Logistic-Regression/01-credit-card-default/README.md)
+- [Insurance Fraud — Logistic Regression](Logistic-Regression/02-insurance-fraud-detection/README.md)
+- [Telecom Customer Churn — Decision Tree](Decision-Tree/01-telecom-customer-churn/README.md)
+- [Transaction Fraud — Decision Tree](Decision-Tree/02-transaction-fraud-classification/README.md)
 
 ## Algorithm backlog
 

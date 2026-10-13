@@ -1,6 +1,6 @@
 # Shared Python 3.12 environment for all learning projects.
--r 01-logistic-regression/01-credit-card-default/requirements.txt
--r 01-logistic-regression/02-insurance-fraud-detection/requirements.txt
--r 02-decision-tree/01-telecom-customer-churn/requirements.txt
--r 02-decision-tree/02-transaction-fraud-classification/requirements.txt
+-r Supervised-ML/Classification/Logistic-Regression/01-credit-card-default/requirements.txt
+-r Supervised-ML/Classification/Logistic-Regression/02-insurance-fraud-detection/requirements.txt
+-r Supervised-ML/Classification/Decision-Tree/01-telecom-customer-churn/requirements.txt
+-r Supervised-ML/Classification/Decision-Tree/02-transaction-fraud-classification/requirements.txt
 seaborn==0.13.2

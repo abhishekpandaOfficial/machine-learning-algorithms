@@ -37,8 +37,8 @@ From the repository root:
 
 ```bash
 source .venv/bin/activate
-python -m pip install -r 02-decision-tree/02-transaction-fraud-classification/requirements.txt
-streamlit run 02-decision-tree/02-transaction-fraud-classification/app.py
+python -m pip install -r Supervised-ML/Classification/Decision-Tree/02-transaction-fraud-classification/requirements.txt
+streamlit run Supervised-ML/Classification/Decision-Tree/02-transaction-fraud-classification/app.py
 ```
 
 ## Streamlit deployment

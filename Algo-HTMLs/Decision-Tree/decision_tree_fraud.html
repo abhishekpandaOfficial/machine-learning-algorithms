@@ -7874,6 +7874,16 @@ a.anchor-link {
 </div>
 <div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=72da88bc">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%F0%9F%A7%A0-What-is-a-Decision-Tree?">🧠 What is a Decision Tree?<a class="anchor-link" href="#%F0%9F%A7%A0-What-is-a-Decision-Tree?">¶</a></h2><p>A Decision Tree recursively asks questions such as <code>amount &gt; threshold?</code> or <code>channel = online?</code>. Each internal node is a split, each branch is an answer, and each leaf stores a prediction or class probability.</p>
 <p>For a node containing class proportions $p_1,\ldots,p_K$, the <strong>Gini impurity</strong> is</p>
 <p>$$
@@ -7881,7 +7891,7 @@ G(t) = 1 - \sum_{k=1}^{K} p_k^2.
 $$</p>
 <p>For binary classes, $G(t)=2p(1-p)$: it is zero when a node is pure and largest at $p=0.5$. If a parent node $t$ is split into children $t_L$ and $t_R$, the weighted impurity is</p>
 <p>$$
-G_{split} = rac{N_L}{N_t}G(t_L) + rac{N_R}{N_t}G(t_R),
+G_{split} = \frac{N_L}{N_t}G(t_L) + \frac{N_R}{N_t}G(t_R),
 $$</p>
 <p>so the impurity reduction is</p>
 <p>$$
@@ -7902,8 +7912,8 @@ $$</p>
 <p>$$G(parent)=1-(0.4^2+0.6^2)=0.48.$$</p>
 <p>A proposed split creates a left child with 3 fraud and 1 legitimate and a right child with 1 fraud and 5 legitimate:</p>
 <p>$$G(left)=1-(0.75^2+0.25^2)=0.375,$$
-$$G(right)=1-(rac16^2+rac56^2)pprox0.278.$$</p>
-<p>The weighted child impurity is $rac4{10}(0.375)+rac6{10}(0.278)pprox0.317$, giving $\Delta Gpprox0.163$. The split makes the children more homogeneous than the parent.</p>
+$$G(right)=1-(\frac16^2+\frac56^2)\approx0.278.$$</p>
+<p>The weighted child impurity is $\frac4{10}(0.375)+\frac6{10}(0.278)\approx0.317$, giving $\Delta G\approx0.163$. The split makes the children more homogeneous than the parent.</p>
 </div>
 </div>
 </div>
@@ -7916,13 +7926,13 @@ $$G(right)=1-(rac16^2+rac56^2)pprox0.278.$$</p>
 </div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
 <h2 id="%E2%9A%96%EF%B8%8F-Metrics-for-rare-event-classification">⚖️ Metrics for rare-event classification<a class="anchor-link" href="#%E2%9A%96%EF%B8%8F-Metrics-for-rare-event-classification">¶</a></h2><p>Let TP, FP, TN and FN denote true positives, false positives, true negatives and false negatives.</p>
 <p>$$
-Accuracy = rac{TP+TN}{TP+TN+FP+FN}\quad	ext{(often misleading under imbalance)}
+Accuracy = \frac{TP+TN}{TP+TN+FP+FN}\quad	ext{(often misleading under imbalance)}
 $$</p>
 <p>$$
-Precision = rac{TP}{TP+FP},\qquad Recall = rac{TP}{TP+FN}
+Precision = \frac{TP}{TP+FP},\qquad Recall = \frac{TP}{TP+FN}
 $$</p>
 <p>$$
-F1 = 2\cdotrac{Precision\cdot Recall}{Precision+Recall}.
+F1 = 2\cdot\frac{Precision\cdot Recall}{Precision+Recall}.
 $$</p>
 <p>Precision asks “when we flag fraud, how often are we right?” Recall asks “how much fraud did we catch?” The precision-recall curve evaluates these trade-offs across thresholds. <strong>PR-AUC</strong> is usually more informative than ROC-AUC when the positive class is rare.</p>
 <p>A probability threshold is an operating policy, not a universal truth. If missing fraud costs $C_{FN}$ and reviewing a legitimate transaction costs $C_{FP}$, a simple evaluation cost is $C_{FN}FN+C_{FP}FP$. Real teams should use validated, documented costs and monitor them over time.</p>

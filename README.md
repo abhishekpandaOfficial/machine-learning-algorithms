@@ -1,4 +1,20 @@
-# Logistic Regression
+# Machine Learning Algorithms
+
+## Learning taxonomy
+
+The repository is organized for expansion across learning paradigms:
+
+- [Supervised ML](Supervised-ML/README.md)
+  - [Classification](Supervised-ML/Classification/README.md)
+  - [Regression](Supervised-ML/Regression/README.md)
+- [Unsupervised ML](Unsupervised-ML/README.md)
+- [Semi-Supervised ML](Semi-Supervised-ML/README.md)
+- [Reinforcement Learning](Reinforcement-Learning/README.md)
+- [Project templates](templates/README.md)
+
+Existing numbered projects are preserved for compatibility and linked from the Classification track. New projects should use the taxonomy and templates above.
+
+## Existing supervised classification projects
 
 This directory contains two independent Logistic Regression projects in different domains.
 

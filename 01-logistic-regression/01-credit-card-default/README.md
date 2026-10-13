@@ -22,6 +22,10 @@
 ## Dataset
 UCI Default of Credit Card Clients dataset.
 
+Dataset link: [UCI Default of Credit Card Clients](https://archive.ics.uci.edu/dataset/350/defaultofcreditcardclients).
+
+Review the UCI terms before redistributing the data or presenting model results outside this educational project.
+
 **Note:** This project is for educational purposes and is not a production credit decision system.
 
 ## Run the app
@@ -33,3 +37,14 @@ source .venv/bin/activate
 python -m pip install -r 01-logistic-regression/01-credit-card-default/requirements.txt
 streamlit run 01-logistic-regression/01-credit-card-default/app.py
 ```
+
+## Streamlit deployment
+
+**Streamlit app:** `[Add deployed Streamlit URL here]`
+
+## Book checklist
+
+- [x] Logistic function, log-odds and cross-entropy are explained.
+- [x] Dataset source, evaluation metrics and threshold limitations are documented.
+- [x] HTML/PDF exports are stored in the root `Algo-HTMLs/` and `Algo-PDFs/` collections.
+- [ ] Validate current data, fairness, governance and deployment monitoring.

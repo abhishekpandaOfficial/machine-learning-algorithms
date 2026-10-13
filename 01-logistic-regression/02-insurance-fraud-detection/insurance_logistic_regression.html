@@ -7796,7 +7796,7 @@ a.anchor-link {
 <!-- End of mermaid configuration --></head>
 <body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 <main>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=eeaaa0e7">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ef22934f">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7812,7 +7812,45 @@ a.anchor-link {
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7bf8ad17">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=4ccd8339">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="%F0%9F%A7%A0-Logistic-Regression:-theory-and-mathematics">🧠 Logistic Regression: theory and mathematics<a class="anchor-link" href="#%F0%9F%A7%A0-Logistic-Regression:-theory-and-mathematics">¶</a></h2><p>Logistic Regression is a supervised classification algorithm that converts a linear score into a probability. For features $x_1,\ldots,x_p$ and coefficients $\beta_1,\ldots,\beta_p$, the linear score is</p>
+<p>$$
+z = \beta_0 + \beta_1x_1 + \cdots + \beta_px_p = \beta_0 + \boldsymbol{\beta}^{\mathsf T}\mathbf{x}.
+$$</p>
+<p>The <strong>sigmoid</strong> (logistic) function maps any real score to $(0,1)$:</p>
+<p>$$
+\sigma(z) = \frac{1}{1+e^{-z}}.
+$$</p>
+<p>We interpret $\hat p=\sigma(z)$ as the estimated probability of the positive class. A threshold $\tau$ turns probability into a decision: predict positive when $\hat p\ge\tau$ and negative otherwise. The common $\tau=0.5$ is only a default; the correct value depends on error costs, capacity and policy.</p>
+<p>The model is linear in the <strong>log-odds</strong>:</p>
+<p>$$
+\log\left(\frac{p}{1-p}\right)=z.
+$$</p>
+<p>A one-unit increase in $x_j$ changes the log-odds by $\beta_j$ while other features are held fixed. The odds ratio is $e^{\beta_j}$: values above 1 increase estimated odds, values below 1 decrease them. This is an association, not proof of causation.</p>
+<h3 id="Binary-cross-entropy-loss">Binary cross-entropy loss<a class="anchor-link" href="#Binary-cross-entropy-loss">¶</a></h3><p>For labels $y_i\in\{0,1\}$ and predictions $\hat p_i$, training minimises the average negative log-likelihood:</p>
+<p>$$
+\mathcal{L}(\boldsymbol{\beta})=-\frac{1}{n}\sum_{i=1}^{n}\left[y_i\log(\hat p_i)+(1-y_i)\log(1-\hat p_i)\right].
+$$</p>
+<p>The loss heavily penalises confident wrong predictions. Regularisation controls coefficient size. L2 regularisation adds $\lambda\sum_j\beta_j^2$; L1 regularisation adds $\lambda\sum_j|\beta_j|$ and can make some coefficients exactly zero.</p>
+<h3 id="What-to-read-in-evaluation">What to read in evaluation<a class="anchor-link" href="#What-to-read-in-evaluation">¶</a></h3><ul>
+<li><strong>Accuracy:</strong> overall correctness; can hide minority-class failure.</li>
+<li><strong>Precision:</strong> among flagged positives, the fraction that is truly positive.</li>
+<li><strong>Recall:</strong> among actual positives, the fraction detected.</li>
+<li><strong>F1:</strong> harmonic mean of precision and recall.</li>
+<li><strong>ROC-AUC:</strong> ranking quality across thresholds.</li>
+<li><strong>PR-AUC:</strong> often more revealing when the positive class is rare.</li>
+</ul>
+<p>Always compare the model with a simple baseline, inspect the confusion matrix, and choose a threshold using a documented validation procedure.\n\n## 🛡️ Real-world use cases and dataset\n\nInsurance analytics can prioritise claims for manual review, identify unusual patterns for investigation and support portfolio-level risk analysis. A probability is not proof of fraud, and a model must never automatically deny a claim.\n\nThis project uses the <a href="https://data.mendeley.com/datasets/992mh7dk9y/2">Mendeley insurance claims dataset</a> and its linked <a href="https://github.com/mwitiderrick/insurancedata/blob/master/insurance_claims.csv">CSV repository</a>. Review the dataset record, CC BY 4.0 terms and feature timing. Investigation or adjudication fields can leak the label and must be excluded from any operational model.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=726564e6">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7828,7 +7866,7 @@ a.anchor-link {
 </div>
 </div>
 </div>
-</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=fe4fb779">
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=50352cc2">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -7892,7 +7930,7 @@ joblib: 1.6.0
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=ab9e398d">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=63a0f061">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -8796,7 +8834,7 @@ Target values:
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>Observed target labels: {'Y', 'N'}
+<pre>Observed target labels: {'N', 'Y'}
 Excluded identifier candidates: ['policy_number', 'policy_bind_date', 'insured_zip', 'incident_date', 'incident_location']
 Excluded constant columns: []
 Features: 33
@@ -9465,7 +9503,7 @@ Not running in Colab. Archive saved locally at /Users/abhishekpanda/Documents/ma
 </div>
 </div>
 </div>
-<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=7c3639a4">
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=38af20ad">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
@@ -9481,6 +9519,36 @@ Not running in Colab. Archive saved locally at /Users/abhishekpanda/Documents/ma
 <li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Package versions match the versions stored in <code>model_metadata.json</code>.</li>
 </ul>
 <p>This is an educational demonstration, not an automated fraud determination system.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=335c2ad2">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="%E2%9C%85-Book-ready-summary-and-checklist">✅ Book-ready summary and checklist<a class="anchor-link" href="#%E2%9C%85-Book-ready-summary-and-checklist">¶</a></h2><h3 id="Key-ideas">Key ideas<a class="anchor-link" href="#Key-ideas">¶</a></h3><ul>
+<li>Logistic Regression models a linear relationship in log-odds and returns calibrated-looking probabilities only when the data and calibration procedure support that interpretation.</li>
+<li>The sigmoid maps a score to a probability; the threshold maps a probability to an action.</li>
+<li>Cross-entropy rewards accurate probabilities and strongly penalises confident mistakes.</li>
+<li>Coefficients describe conditional associations. They do not establish causality or fairness.</li>
+<li>Preprocessing must be fitted on training data only, and the complete pipeline should be saved for serving.</li>
+</ul>
+<h3 id="Practical-checklist">Practical checklist<a class="anchor-link" href="#Practical-checklist">¶</a></h3><ul>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Problem, target and intended use are stated.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Dataset source and access/licensing notes are documented.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Train/validation/test logic and leakage controls are explained.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Logistic function, log-odds and cross-entropy formulas are included.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Baseline, confusion matrix and threshold-aware metrics are reviewed.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Coefficients are interpreted cautiously.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Saved artifacts are reloaded with the pinned dependency versions.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Validate on a current, approved dataset and monitor drift.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Complete privacy, fairness, governance and security review.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add the deployed Streamlit URL: <strong>[Streamlit app link — add after deployment]</strong>.</li>
+</ul>
+<h3 id="Libraries-and-tools">Libraries and tools<a class="anchor-link" href="#Libraries-and-tools">¶</a></h3><p>Python 3.12 · Jupyter · pandas · NumPy · Matplotlib · Seaborn · scikit-learn · joblib · openpyxl · nbconvert · Streamlit · Git/GitHub.</p>
 </div>
 </div>
 </div>

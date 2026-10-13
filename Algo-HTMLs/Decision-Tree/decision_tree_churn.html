@@ -7892,6 +7892,31 @@ Project 1 of 2 in the Decision Tree chapter.</p>
 </div>
 </div>
 </div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=c3484597">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="%F0%9F%A7%A0-Decision-Trees:-theory-and-mathematics">🧠 Decision Trees: theory and mathematics<a class="anchor-link" href="#%F0%9F%A7%A0-Decision-Trees:-theory-and-mathematics">¶</a></h2><p>A Decision Tree recursively partitions the feature space with questions such as <code>tenure &lt;= 12</code> or <code>Contract = month-to-month</code>. Internal nodes contain split rules, branches contain outcomes, and leaves contain a class prediction or class probabilities.</p>
+<p>For a node $t$ with class proportions $p_1,\ldots,p_K$, <strong>Gini impurity</strong> is</p>
+<p>$$
+G(t)=1-\sum_{k=1}^{K}p_k^2.
+$$</p>
+<p>For two classes, $G(t)=2p(1-p)$. It is zero when a node is pure and largest when the classes are evenly mixed. If a parent with $N_t$ observations is split into children, the weighted impurity is</p>
+<p>$$
+G_{split}=\frac{N_L}{N_t}G(t_L)+\frac{N_R}{N_t}G(t_R),
+$$</p>
+<p>and impurity reduction is $\Delta G=G(t)-G_{split}$. The training algorithm searches candidate thresholds and categories for a large reduction. Entropy and information gain are alternative criteria:</p>
+<p>$$
+H(t)=-\sum_{k=1}^{K}p_k\log_2(p_k),\qquad IG=H(t)-H_{split}.
+$$</p>
+<p>A deep tree can memorise training examples. <code>max_depth</code>, <code>min_samples_leaf</code>, <code>min_samples_split</code>, class weights and post-pruning control variance. A shallow tree can underfit, so model complexity must be selected with validation data rather than test-set guessing.</p>
+<h3 id="How-to-interpret-a-tree-safely">How to interpret a tree safely<a class="anchor-link" href="#How-to-interpret-a-tree-safely">¶</a></h3><p>A split is useful for separating the observed sample; it is not a causal explanation. Feature importance can be biased toward high-cardinality or continuous variables. Check stability across folds, time periods and relevant subgroups.\n\n## 📡 Real-world use cases and dataset\n\nChurn models can help a service team prioritise retention outreach, forecast capacity and understand where customer experience may need improvement. They should not be used to penalise customers or deny service.\n\nThis project uses the <a href="https://www.ibm.com/docs/en/ws-and-kc?topic=tutorials-predict-telecommunications-churn">IBM telecom churn sample description</a> and <a href="https://raw.githubusercontent.com/IBM/telco-customer-churn-on-icp4d/master/data/Telco-Customer-Churn.csv">candidate CSV</a>. Verify dataset terms before redistribution; the repository does not commit the raw CSV.</p>
+</div>
+</div>
+</div>
+</div>
 <div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=3782b08a">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
@@ -9026,14 +9051,14 @@ Average precision: 0.618
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="application/vnd.jupyter.stderr" tabindex="0">
-<pre>2026/10/13 11:22:58 INFO mlflow.agent.hint: Load the `instrumenting-with-mlflow-tracing` skill at /Users/abhishekpanda/Documents/machine-learning-algorithms/.venv/lib/python3.12/site-packages/mlflow/assistant/skills/instrumenting-with-mlflow-tracing/SKILL.md before writing any tracing code; it ships with this MLflow install. Set MLFLOW_DISABLE_AGENT_HINT=1 to silence this.
+<pre>2026/10/13 11:43:49 INFO mlflow.agent.hint: Load the `instrumenting-with-mlflow-tracing` skill at /Users/abhishekpanda/Documents/machine-learning-algorithms/.venv/lib/python3.12/site-packages/mlflow/assistant/skills/instrumenting-with-mlflow-tracing/SKILL.md before writing any tracing code; it ships with this MLflow install. Set MLFLOW_DISABLE_AGENT_HINT=1 to silence this.
 </pre>
 </div>
 </div>
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>MLflow run recorded: 7d86fab177c74c97937765431d119708
+<pre>MLflow run recorded: defec9a59cac44e8be9d19f0c2f621ef
 </pre>
 </div>
 </div>
@@ -9235,6 +9260,36 @@ Saved metadata: /Users/abhishekpanda/Documents/machine-learning-algorithms/02-de
 <div class="highlight"><pre><span></span>python<span class="w"> </span>tools/export_notebook.py<span class="w"> </span><span class="s2">"02-decision-tree/01-telecom-customer-churn/decision_tree_churn.ipynb"</span>
 </pre></div>
 <p>The script executes a temporary copy and creates HTML/PDF beside the notebook in the project root. Inspect the files for syntax colouring, formulas, plots, missing images and clipped code. Only then commit the source notebook and reviewed exports for public download.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=001562ab">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<h2 id="%E2%9C%85-Book-ready-summary-and-checklist">✅ Book-ready summary and checklist<a class="anchor-link" href="#%E2%9C%85-Book-ready-summary-and-checklist">¶</a></h2><h3 id="Key-ideas">Key ideas<a class="anchor-link" href="#Key-ideas">¶</a></h3><ul>
+<li>A tree learns a sequence of impurity-reducing questions.</li>
+<li>Gini impurity measures class mixing; information gain is an alternative split objective.</li>
+<li>Depth and leaf-size constraints trade bias against variance.</li>
+<li>A confusion matrix and precision/recall explain errors better than accuracy alone.</li>
+<li>A complete preprocessing-and-model pipeline prevents training/serving mismatch.</li>
+</ul>
+<h3 id="Practical-checklist">Practical checklist<a class="anchor-link" href="#Practical-checklist">¶</a></h3><ul>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Problem, target, intended use and limitations are stated.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Dataset source and access/licensing notes are documented.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Gini and information-gain mathematics are explained.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Leakage-safe preprocessing and a reproducible split are used.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Baseline and threshold-aware metrics are reviewed.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Tree complexity is constrained and interpretations are qualified.</li>
+<li class="task-list-item"><input checked="" class="task-list-item-checkbox" disabled="" type="checkbox"/>Artifact loading is tested with pinned dependencies.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Validate on approved current data and monitor drift.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Complete privacy, fairness, governance and security review.</li>
+<li class="task-list-item"><input class="task-list-item-checkbox" disabled="" type="checkbox"/>Add the deployed Streamlit URL: <strong>[Streamlit app link — add after deployment]</strong>.</li>
+</ul>
+<h3 id="Libraries-and-tools">Libraries and tools<a class="anchor-link" href="#Libraries-and-tools">¶</a></h3><p>Python 3.12 · Jupyter · pandas · NumPy · Matplotlib · Seaborn · scikit-learn · joblib · MLflow where applicable · nbconvert · Streamlit · Git/GitHub.</p>
 </div>
 </div>
 </div>

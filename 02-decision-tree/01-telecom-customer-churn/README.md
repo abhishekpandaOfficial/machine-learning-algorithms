@@ -14,6 +14,8 @@ Teach a Decision Tree Classifier using a public telecom customer churn sample. T
 
 **Terms check:** The IBM repository describes the code pattern's licence, but that does not automatically establish a separate licence for the dataset. Before redistributing the CSV, verify applicable data terms. The raw dataset will not be committed to this repository by default; the notebook will document how to obtain it from the source.
 
+The book chapter also explains Gini impurity, information gain, tree complexity, class metrics and responsible interpretation.
+
 ## Project files
 
 - `decision_tree_churn.ipynb`: theory, equations, EDA, commented training code, evaluation, outputs and interpretation.
@@ -38,6 +40,17 @@ source .venv/bin/activate
 python -m pip install -r 02-decision-tree/01-telecom-customer-churn/requirements.txt
 streamlit run 02-decision-tree/01-telecom-customer-churn/app.py
 ```
+
+## Streamlit deployment
+
+**Streamlit app:** `[Add deployed Streamlit URL here]`
+
+## Book checklist
+
+- [x] Decision Tree theory, Gini impurity and information gain are explained.
+- [x] Dataset source, licensing cautions and leakage controls are documented.
+- [x] HTML/PDF exports are stored in the root `Algo-HTMLs/` and `Algo-PDFs/` collections.
+- [ ] Validate current data, fairness, governance and deployment monitoring.
 
 ## Status
 

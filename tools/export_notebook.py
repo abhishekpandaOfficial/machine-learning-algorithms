@@ -66,7 +66,7 @@ def main() -> int:
 
             run([
                 sys.executable, "-m", "jupyter", "nbconvert",
-                "--to", "html", str(executed),
+                "--to", "html", "--template", "lab", str(executed),
                 "--output", f"{stem}.html",
                 "--output-dir", str(output_dir),
             ])
@@ -76,7 +76,7 @@ def main() -> int:
             # python -m playwright install chromium
             run([
                 sys.executable, "-m", "jupyter", "nbconvert",
-                "--to", "webpdf", str(executed),
+                "--to", "webpdf", "--template", "lab", str(executed),
                 "--allow-chromium-download",
                 "--output", f"{stem}.pdf",
                 "--output-dir", str(output_dir),

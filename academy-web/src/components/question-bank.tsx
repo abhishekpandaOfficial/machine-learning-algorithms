@@ -16,7 +16,7 @@ type Question = {
 };
 
 const difficulties = ["All levels", "Beginner", "Intermediate", "Advanced"];
-const types = ["All types", "Concept", "Comparison", "Problem solving", "Technique", "Data quality", "Algorithm", "Metric", "Validation design", "Debugging", "Scenario", "Incident response", "Decision making", "Capstone scenario", "Workflow", "Engineering"];
+const types = ["All types", "Concept", "Comparison", "Problem framing", "Problem solving", "Technique", "Data quality", "Algorithm", "Metric", "Validation design", "Debugging", "Scenario", "Incident response", "Decision making", "Capstone scenario", "Workflow", "Engineering"];
 
 export default function QuestionBank({ questions }: { questions: Question[] }) {
   const [query, setQuery] = useState("");

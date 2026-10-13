@@ -25,7 +25,7 @@ publisher attribution and redistribution guidance are in [`data/README.md`](data
 - `decision_tree_fraud.html`: browser export of the executed notebook.
 - `decision_tree_fraud.pdf`: printable export of the executed notebook.
 - `artifacts/`: fitted pipeline and metadata created by the notebook.
-- `app.py`: crimson-branded serving interface using the saved real-data model and explicit human-review disclaimer.
+- `app.py`: crimson-branded serving interface with guided examples, CSV upload, advanced input mode, saved-model scoring, and explicit human-review disclaimer.
 - `requirements.txt` and this README: setup and usage instructions.
 
 ## Evaluation covered
@@ -57,6 +57,11 @@ The serving app loads a trained artifact and displays a review signal. Add the d
 Profile and app directory: [https://share.streamlit.io/user/abhishekpandaofficial](https://share.streamlit.io/user/abhishekpandaofficial)
 
 The app is an educational demonstration. Its anonymised PCA inputs are not a substitute for a production feature contract or transaction-governance process.
+
+The default **Guided example** mode is designed for non-technical users. Analysts
+can use **Upload a CSV** with the documented 30-column contract, while **Advanced
+feature editor** is available for research users who already understand the
+anonymised `V1`–`V28` variables.
 
 ## Final review checklist
 

@@ -1,0 +1,13 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="380" viewBox="0 0 1200 380" role="img" aria-labelledby="title desc">
+<title id="title">Decision Tree Classifier learning workbook</title><desc id="desc">A stylised decision tree showing a root question branching to two decisions and terminal prediction leaves.</desc>
+<defs><linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#102a43"/><stop offset="1" stop-color="#244e70"/></linearGradient><linearGradient id="node" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7dd3fc"/><stop offset="1" stop-color="#38bdf8"/></linearGradient></defs>
+<rect width="1200" height="380" rx="28" fill="url(#bg)"/>
+<circle cx="1010" cy="55" r="130" fill="#38bdf8" opacity=".09"/><circle cx="1120" cy="310" r="180" fill="#a7f3d0" opacity=".08"/>
+<text x="60" y="92" font-family="Inter,Arial,sans-serif" font-size="22" font-weight="700" fill="#7dd3fc" letter-spacing="3">MACHINE LEARNING • CLASSIFICATION</text>
+<text x="60" y="155" font-family="Inter,Arial,sans-serif" font-size="42" font-weight="700" fill="#ffffff">Decision Tree Classifier</text>
+<text x="60" y="203" font-family="Inter,Arial,sans-serif" font-size="23" fill="#dbeafe">From intuition and mathematics to a tested prediction pipeline</text>
+<text x="60" y="300" font-family="Inter,Arial,sans-serif" font-size="18" fill="#bfdbfe">THEORY  •  CODE  •  EVALUATION  •  DEPLOYMENT</text>
+<g stroke="#bae6fd" stroke-width="4" fill="none" stroke-linecap="round"><path d="M890 115 L815 175 L760 220"/><path d="M815 175 L920 220"/><path d="M890 115 L1000 175 L960 220"/><path d="M1000 175 L1080 220"/></g>
+<g fill="url(#node)" stroke="#e0f2fe" stroke-width="2"><rect x="825" y="70" width="130" height="52" rx="14"/><rect x="705" y="220" width="110" height="50" rx="14"/><rect x="870" y="220" width="110" height="50" rx="14"/><rect x="910" y="220" width="110" height="50" rx="14"/><rect x="1030" y="220" width="110" height="50" rx="14"/></g>
+<g font-family="Inter,Arial,sans-serif" font-size="15" font-weight="700" fill="#082f49" text-anchor="middle"><text x="890" y="101">Root split</text><text x="760" y="250">Leaf A</text><text x="925" y="250">Leaf B</text><text x="965" y="250">Leaf C</text><text x="1085" y="250">Leaf D</text></g>
+</svg>

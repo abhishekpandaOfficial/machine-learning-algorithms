@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 520" role="img" aria-labelledby="title desc">
+  <title id="title">Insurance fraud detection</title>
+  <desc id="desc">A stylized shield, magnifying glass and classification signal for an insurance fraud project.</desc>
+  <defs><linearGradient id="bg" x1="0" x2="1"><stop stop-color="#431407"/><stop offset="1" stop-color="#ea580c"/></linearGradient></defs>
+  <rect width="1600" height="520" rx="34" fill="url(#bg)"/>
+  <circle cx="1380" cy="100" r="230" fill="#fed7aa" opacity=".16"/>
+  <path d="M325 75 L520 140 V285 C520 390 425 445 325 475 C225 445 130 390 130 285 V140 Z" fill="#fff7ed" opacity=".96"/>
+  <path d="M325 125 L465 172 V280 C465 355 400 395 325 421 C250 395 185 355 185 280 V172 Z" fill="#f97316"/>
+  <path d="M255 275 l48 48 102-120" fill="none" stroke="#fff7ed" stroke-width="24" stroke-linecap="round" stroke-linejoin="round"/>
+  <circle cx="850" cy="235" r="115" fill="none" stroke="#ffedd5" stroke-width="24"/>
+  <path d="M935 320 L1045 430" stroke="#ffedd5" stroke-width="28" stroke-linecap="round"/>
+  <path d="M1170 350 C1240 290 1280 365 1340 300 S1440 270 1510 170" fill="none" stroke="#fed7aa" stroke-width="10" stroke-linecap="round"/>
+  <text x="600" y="155" font-family="Arial, sans-serif" font-size="38" fill="#ffedd5" font-weight="700">LOGISTIC REGRESSION</text>
+  <text x="600" y="440" font-family="Arial, sans-serif" font-size="30" fill="#fff7ed">Insurance Fraud Detection Lab</text>
+</svg>

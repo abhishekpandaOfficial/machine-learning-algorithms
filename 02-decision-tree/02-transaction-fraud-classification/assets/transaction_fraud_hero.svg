@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1600 520" role="img" aria-labelledby="title desc">
+  <title id="title">Transaction fraud classification planning</title>
+  <desc id="desc">A stylized transaction card and decision path for a fraud classification planning project.</desc>
+  <defs><linearGradient id="bg" x1="0" x2="1"><stop stop-color="#3b0764"/><stop offset="1" stop-color="#7e22ce"/></linearGradient></defs>
+  <rect width="1600" height="520" rx="34" fill="url(#bg)"/>
+  <circle cx="1420" cy="60" r="230" fill="#e9d5ff" opacity=".16"/>
+  <g transform="translate(135 115)">
+    <rect width="520" height="300" rx="26" fill="#faf5ff"/>
+    <rect width="520" height="72" rx="26" fill="#6b21a8"/>
+    <circle cx="88" cy="36" r="20" fill="#f5d0fe"/><circle cx="145" cy="36" r="20" fill="#f0abfc"/>
+    <rect x="55" y="125" width="160" height="22" rx="11" fill="#c084fc"/>
+    <rect x="55" y="176" width="280" height="18" rx="9" fill="#e9d5ff"/>
+    <rect x="55" y="220" width="210" height="18" rx="9" fill="#e9d5ff"/>
+  </g>
+  <g stroke="#f3e8ff" stroke-width="8" fill="none" stroke-linecap="round"><path d="M820 170 H1030 L1130 275 H1370"/><path d="M1030 170 L1130 65 H1370"/></g>
+  <g fill="#faf5ff" stroke="#c084fc" stroke-width="8"><circle cx="820" cy="170" r="38"/><circle cx="1130" cy="275" r="38"/><circle cx="1130" cy="65" r="38"/><circle cx="1370" cy="275" r="38"/><circle cx="1370" cy="65" r="38"/></g>
+  <text x="808" y="182" font-family="Arial, sans-serif" font-size="28" fill="#581c87" font-weight="700">?</text>
+  <text x="760" y="410" font-family="Arial, sans-serif" font-size="38" fill="#f3e8ff" font-weight="700">DECISION TREE</text>
+  <text x="760" y="460" font-family="Arial, sans-serif" font-size="28" fill="#e9d5ff">Transaction Fraud Lab · Planning</text>
+</svg>

@@ -15,6 +15,6 @@ Regression predicts a continuous numeric target, such as price, demand, duration
 
 Linear Regression · Ridge · Lasso · Elastic Net · Decision Tree Regressor · Random Forest Regressor · Gradient Boosting Regressor
 
-## Template
+## Project standard
 
-Start new projects from [the regression project template](../../templates/regression/README.md).
+Follow the repository project standard documented in the Classification track.

@@ -13,6 +13,6 @@ Unsupervised learning finds structure when no labelled target is available.
 
 k-Means · Hierarchical Clustering · DBSCAN · Gaussian Mixture Models · PCA · Isolation Forest · Association Rules
 
-## Template
+## Project standard
 
-Start new projects from [the unsupervised project template](../templates/unsupervised/README.md).
+Follow the repository project standard documented in the Classification track.

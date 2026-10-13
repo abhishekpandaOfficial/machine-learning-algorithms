@@ -2,4 +2,4 @@
 
 Reserved for Decision Tree Regressor projects.
 
-Start new work with the [regression template](../../../templates/regression/README.md).
+Follow the repository project standard documented in the Classification track.

@@ -2,4 +2,4 @@
 
 Reserved for Isolation Forest, Local Outlier Factor and autoencoder projects.
 
-Start new work with the [unsupervised template](../../templates/unsupervised/README.md).
+Follow the repository project standard documented in the Classification track.

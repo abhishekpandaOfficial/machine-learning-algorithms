@@ -14,6 +14,6 @@ Semi-supervised learning combines a small labelled dataset with a larger unlabel
 
 Self-Training · Label Propagation · Label Spreading · Semi-Supervised SVM
 
-## Template
+## Project standard
 
-Start new projects from [the semi-supervised project template](../templates/semi-supervised/README.md).
+Follow the repository project standard documented in the Classification track.

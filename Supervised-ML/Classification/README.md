@@ -22,6 +22,8 @@ Classification predicts a discrete class, such as `fraud` versus `legitimate`, o
 
 Logistic Regression · Decision Tree · k-Nearest Neighbors · Naive Bayes · Support Vector Machine · Random Forest · Gradient Boosting · XGBoost-style boosting
 
-## Template
+## Project standard
 
-Start new projects from [the classification project template](../../templates/classification/README.md).
+New classification projects should follow the same structure as the completed projects:
+problem definition, data contract, reproducible notebook, evaluation, saved artifacts,
+tests, Streamlit application, and reviewed HTML/PDF exports.

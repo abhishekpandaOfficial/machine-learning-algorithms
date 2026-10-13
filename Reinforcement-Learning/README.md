@@ -15,6 +15,6 @@ Reinforcement learning learns a policy through interaction with an environment a
 
 Multi-Armed Bandits · Q-Learning · SARSA · Deep Q-Networks · Policy Gradients · Actor-Critic
 
-## Template
+## Project standard
 
-Start new projects from [the reinforcement-learning project template](../templates/reinforcement/README.md).
+Follow the repository project standard documented in the Classification track.

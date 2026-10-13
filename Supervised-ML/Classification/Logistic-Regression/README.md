@@ -1,10 +1,10 @@
-# Logistic Regression — Classification Track
+# Logistic Regression — Classification
 
-Use this folder for future Logistic Regression classification projects.
+This track contains production-style educational Logistic Regression projects.
 
-Current projects:
+## Projects
 
-- [Credit Default](01-credit-card-default/README.md)
-- [Insurance Fraud](02-insurance-fraud-detection/README.md)
+- [Credit Card Default](01-credit-card-default/README.md)
+- [Insurance Fraud Detection](02-insurance-fraud-detection/README.md)
 
-Start new work with the [classification template](../../../templates/classification/README.md).
+Each project includes a reproducible notebook, trained artifacts, a Streamlit app, tests where applicable, and HTML/PDF learning exports.

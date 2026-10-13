@@ -2,4 +2,4 @@
 
 Reserved for graph-based label propagation and label spreading projects.
 
-Start new work with the [semi-supervised template](../../templates/semi-supervised/README.md).
+Follow the repository project standard documented in the Classification track.

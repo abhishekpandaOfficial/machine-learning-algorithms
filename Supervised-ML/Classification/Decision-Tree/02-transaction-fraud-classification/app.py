@@ -4,6 +4,7 @@ from __future__ import annotations
 import base64
 import io
 import json
+import time
 from pathlib import Path
 
 import joblib
@@ -94,6 +95,131 @@ def validate_bulk_frame(frame: pd.DataFrame) -> pd.DataFrame:
         bad = cleaned.columns[cleaned.isna().any()].tolist()
         raise ValueError("These columns must contain numbers: " + ", ".join(bad))
     return cleaned
+
+
+def risk_band(probability: float) -> str:
+    if probability >= 0.95:
+        return "CRITICAL"
+    if probability >= 0.75:
+        return "HIGH"
+    if probability >= 0.50:
+        return "MONITOR"
+    return "LOW"
+
+
+def build_decision_frame(
+    frame: pd.DataFrame, probabilities: object, threshold: float
+) -> pd.DataFrame:
+    """Add auditable classification and decision fields to model output."""
+    scores = pd.Series(probabilities, index=frame.index, dtype="float64")
+    results = frame.copy()
+    results["fraud_probability"] = scores
+    results["classification"] = (scores >= threshold).map(
+        {True: "FRAUD", False: "NOT FRAUD"}
+    )
+    results["risk_band"] = scores.map(risk_band)
+    results["confidence"] = scores.map(lambda value: max(value, 1 - value))
+    results["decision"] = results["classification"].map(
+        {
+            "FRAUD": "ESCALATE FOR HUMAN REVIEW",
+            "NOT FRAUD": "NO AUTOMATED FRAUD FLAG",
+        }
+    )
+    results["review_signal"] = results["classification"].eq("FRAUD")
+    return results
+
+
+def processing_step(label: str, detail: str, delay: float = 0.15) -> None:
+    st.write(f"**{label}**")
+    st.caption(detail)
+    time.sleep(delay)
+
+
+@st.dialog("Questionnaire analysis in progress")
+def score_manual_in_dialog(
+    amount: float,
+    channel: str,
+    location: str,
+    device: str,
+    velocity: str,
+    authentication: str,
+    account_age: str,
+) -> None:
+    progress = st.progress(0, text="Starting questionnaire analysis")
+    processing_step("1. Answers received", "Checking the seven questionnaire responses.")
+    progress.progress(20, text="Answers received")
+    processing_step("2. Indicators evaluated", "Applying the transparent educational scoring rules.")
+    progress.progress(50, text="Indicators evaluated")
+    score, reasons = score_questionnaire(
+        amount, channel, location, device, velocity, authentication, account_age
+    )
+    processing_step("3. Screening band assigned", "Mapping the score to a concern level.")
+    progress.progress(80, text="Screening band assigned")
+    processing_step("4. Explanation prepared", "Preparing the factors that changed the score.")
+    progress.progress(100, text="Analysis complete")
+    st.success("Analysis complete. This is an educational screening result.")
+    st.metric("Screening score", f"{score}/100")
+    st.progress(score / 100)
+    if score >= 60:
+        st.error("🔎 Consider additional human review")
+    elif score >= 30:
+        st.warning("⚠️ Consider verifying the transaction details")
+    else:
+        st.success("✅ Lower screening concern")
+    st.caption(
+        "This rule-based score is a teaching aid, not a trained-model probability "
+        "and not a fraud/not-fraud classification."
+    )
+    with st.expander("Why did the score change?"):
+        if reasons:
+            for reason in reasons:
+                st.write(f"- {reason}")
+        else:
+            st.write("No elevated indicators were selected.")
+
+
+@st.dialog("Transaction scoring in progress")
+def score_bulk_in_dialog(
+    frame: pd.DataFrame, model: object, threshold: float
+) -> None:
+    progress = st.progress(0, text="Starting secure scoring workflow")
+    processing_step("1. Input contract checked", "Required research features are present and ordered.")
+    progress.progress(20, text="Input contract checked")
+    processing_step("2. Numeric values validated", "Missing and non-numeric values are rejected before inference.")
+    progress.progress(40, text="Numeric values validated")
+    processing_step("3. Model inference running", "Applying the versioned Decision Tree artifact to each row.")
+    probabilities = model.predict_proba(frame)[:, list(model.classes_).index(1)]
+    progress.progress(70, text="Model inference complete")
+    processing_step("4. Risk policy applied", f"Comparing scores with the {threshold:.0%} review threshold.")
+    results = build_decision_frame(frame, probabilities, threshold)
+    progress.progress(90, text="Risk policy applied")
+    processing_step("5. Decision record prepared", "Adding classification, confidence, risk band, and review action.")
+    progress.progress(100, text="Scoring complete")
+    st.success("Scoring complete. Review the decision record below.")
+    metric_a, metric_b, metric_c = st.columns(3)
+    metric_a.metric("Rows checked", f"{len(results):,}")
+    metric_b.metric("FRAUD", f"{int(results['classification'].eq('FRAUD').sum()):,}")
+    metric_c.metric("NOT FRAUD", f"{int(results['classification'].eq('NOT FRAUD').sum()):,}")
+    st.dataframe(
+        results[
+            [
+                "fraud_probability",
+                "classification",
+                "risk_band",
+                "confidence",
+                "decision",
+            ]
+        ].head(100),
+        use_container_width=True,
+        hide_index=True,
+    )
+    st.download_button(
+        "⬇️ Download enterprise decision record",
+        data=results.to_csv(index=False).encode("utf-8"),
+        file_name="transaction_fraud_decision_record.csv",
+        mime="text/csv",
+        use_container_width=True,
+    )
 
 
 st.set_page_config(
@@ -201,29 +327,9 @@ with manual_tab:
         manual_submitted = st.form_submit_button("Calculate screening score", type="primary", use_container_width=True)
 
     if manual_submitted:
-        score, reasons = score_questionnaire(
+        score_manual_in_dialog(
             amount, channel, location, device, velocity, authentication, account_age
         )
-        st.divider()
-        st.subheader("Educational screening result")
-        result_col, detail_col = st.columns([1, 1.5])
-        with result_col:
-            st.metric("Screening score", f"{score}/100")
-            st.progress(score / 100)
-        with detail_col:
-            if score >= 60:
-                st.error("🔎 Consider additional human review")
-            elif score >= 30:
-                st.warning("⚠️ Consider verifying the transaction details")
-            else:
-                st.success("✅ Lower screening concern")
-            st.caption("This rule-based score is a teaching aid, not a trained-model probability.")
-        with st.expander("Why did the score change?"):
-            if reasons:
-                for reason in reasons:
-                    st.write(f"- {reason}")
-            else:
-                st.write("No elevated indicators were selected.")
 
 with bulk_tab:
     st.markdown(
@@ -250,24 +356,12 @@ with bulk_tab:
             clean_bulk = validate_bulk_frame(bulk_frame)
             st.success(f"Loaded {len(clean_bulk):,} transaction row(s).")
             st.dataframe(bulk_frame.head(5), use_container_width=True, hide_index=True)
-            if st.button("Calculate model scores", type="primary", use_container_width=True):
-                probabilities = model.predict_proba(clean_bulk)[:, list(model.classes_).index(1)]
-                results = bulk_frame.copy()
-                results["fraud_probability"] = probabilities
-                results["review_signal"] = probabilities >= threshold
-                st.subheader("Trained model results")
-                metric_a, metric_b, metric_c = st.columns(3)
-                metric_a.metric("Rows checked", f"{len(results):,}")
-                metric_b.metric("Rows for review", f"{int(results['review_signal'].sum()):,}")
-                metric_c.metric("Highest score", f"{probabilities.max():.2%}")
-                st.dataframe(results[["fraud_probability", "review_signal"]].head(100), use_container_width=True)
-                st.download_button(
-                    "⬇️ Download scored results",
-                    data=results.to_csv(index=False).encode("utf-8"),
-                    file_name="transaction_fraud_scored_results.csv",
-                    mime="text/csv",
-                    use_container_width=True,
-                )
+            st.caption(
+                "The model creates an auditable decision record: probability, "
+                "FRAUD/NOT FRAUD classification, risk band, confidence, and human-review action."
+            )
+            if st.button("▶️ Run enterprise fraud classification", type="primary", use_container_width=True):
+                score_bulk_in_dialog(clean_bulk, model, threshold)
         except (ValueError, pd.errors.ParserError, UnicodeDecodeError, ImportError) as error:
             st.error(f"Could not process this file: {error}")
 

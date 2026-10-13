@@ -61,9 +61,12 @@ The app is an educational demonstration. Its anonymised PCA inputs are not a sub
 The **Manual questionnaire** tab is designed for non-technical users and returns
 a transparent educational screening score. The **Bulk upload** tab runs the
 trained model against CSV or Excel files using the documented 30-column model
-contract and provides a downloadable CSV template. The questionnaire score and
-the trained ULB model score are intentionally kept separate because the public
-dataset's `V1`–`V28` fields are anonymised.
+contract and provides a downloadable CSV template. Each bulk result includes
+the fraud probability, explicit `FRAUD` or `NOT FRAUD` classification, risk
+band, confidence, and a human-review decision. The scoring dialog shows the
+validation, inference, and policy stages before presenting the decision record.
+The questionnaire score and the trained ULB model score are intentionally kept
+separate because the public dataset's `V1`–`V28` fields are anonymised.
 
 ## Final review checklist
 

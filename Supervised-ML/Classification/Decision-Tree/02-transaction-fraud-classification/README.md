@@ -25,7 +25,7 @@ publisher attribution and redistribution guidance are in [`data/README.md`](data
 - `decision_tree_fraud.html`: browser export of the executed notebook.
 - `decision_tree_fraud.pdf`: printable export of the executed notebook.
 - `artifacts/`: fitted pipeline and metadata created by the notebook.
-- `app.py`: crimson-branded serving interface with guided examples, CSV upload, advanced input mode, saved-model scoring, and explicit human-review disclaimer.
+- `app.py`: two-tab serving interface with a general-user questionnaire, CSV/Excel bulk upload, downloadable model template, saved-model scoring, and explicit human-review disclaimer.
 - `requirements.txt` and this README: setup and usage instructions.
 
 ## Evaluation covered
@@ -58,10 +58,12 @@ Profile and app directory: [https://share.streamlit.io/user/abhishekpandaofficia
 
 The app is an educational demonstration. Its anonymised PCA inputs are not a substitute for a production feature contract or transaction-governance process.
 
-The default **Guided example** mode is designed for non-technical users. Analysts
-can use **Upload a CSV** with the documented 30-column contract, while **Advanced
-feature editor** is available for research users who already understand the
-anonymised `V1`–`V28` variables.
+The **Manual questionnaire** tab is designed for non-technical users and returns
+a transparent educational screening score. The **Bulk upload** tab runs the
+trained model against CSV or Excel files using the documented 30-column model
+contract and provides a downloadable CSV template. The questionnaire score and
+the trained ULB model score are intentionally kept separate because the public
+dataset's `V1`–`V28` fields are anonymised.
 
 ## Final review checklist
 

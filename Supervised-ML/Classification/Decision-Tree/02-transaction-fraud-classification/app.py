@@ -1,7 +1,8 @@
-"""Friendly Streamlit interface for the Transaction Fraud Lab."""
+"""Two-mode, non-technical Transaction Fraud Lab interface."""
 from __future__ import annotations
 
 import base64
+import io
 import json
 from pathlib import Path
 
@@ -26,23 +27,69 @@ def load_model_assets():
     return joblib.load(MODEL_PATH), json.loads(METADATA_PATH.read_text(encoding="utf-8"))
 
 
-def example_frame(kind: str) -> pd.DataFrame:
-    """Return understandable demo inputs without exposing the PCA controls."""
-    values = {feature: 0.0 for feature in FEATURES}
-    if kind == "Higher review signal":
-        values.update({"Time": 120000.0, "V4": 3.2, "V10": -4.5, "V12": -3.5, "V14": -6.0, "Amount": 850.0})
-    elif kind == "Large online purchase":
-        values.update({"Time": 90000.0, "V4": 1.8, "V10": -2.0, "V14": -2.5, "Amount": 1200.0})
-    else:
-        values.update({"Time": 50000.0, "V4": 0.2, "V10": 0.1, "V14": 0.0, "Amount": 45.0})
-    return pd.DataFrame([values], columns=FEATURES)
+def csv_template() -> bytes:
+    """Create an empty, correctly ordered bulk-upload template."""
+    return pd.DataFrame([{feature: 0.0 for feature in FEATURES}]).to_csv(index=False).encode("utf-8")
 
 
-def validate_frame(frame: pd.DataFrame, expected_features: list[str]) -> pd.DataFrame:
-    missing = sorted(set(expected_features) - set(frame.columns))
+def score_questionnaire(
+    amount: float,
+    channel: str,
+    location: str,
+    device: str,
+    velocity: str,
+    authentication: str,
+    account_age: str,
+) -> tuple[int, list[str]]:
+    """Return an educational, rule-based screening score, not a model prediction."""
+    score = 0
+    reasons: list[str] = []
+    if amount > 1000:
+        score += 25
+        reasons.append("The transaction amount is high.")
+    elif amount > 500:
+        score += 12
+        reasons.append("The transaction amount is above the usual small-purchase range.")
+    if channel in {"Online checkout", "Bank transfer"}:
+        score += 15
+        reasons.append("This channel commonly receives additional verification.")
+    if location == "International location":
+        score += 20
+        reasons.append("The location is different from the usual domestic pattern.")
+    elif location == "New domestic location":
+        score += 8
+        reasons.append("The location is new for this account.")
+    if device == "New device":
+        score += 18
+        reasons.append("The device has not been seen before.")
+    elif device == "Recently seen device":
+        score += 7
+        reasons.append("The device was only recently seen.")
+    if velocity == "Unusually rapid transactions":
+        score += 18
+        reasons.append("Transaction velocity is unusually high.")
+    elif velocity == "Several transactions":
+        score += 8
+        reasons.append("Several recent transactions were reported.")
+    if authentication == "Authentication failed":
+        score += 25
+        reasons.append("Authentication failed.")
+    elif authentication == "Standard authentication":
+        score += 5
+    if account_age == "New account":
+        score += 12
+        reasons.append("The account is new.")
+    elif account_age == "Recently opened account":
+        score += 6
+        reasons.append("The account was opened recently.")
+    return min(score, 100), reasons
+
+
+def validate_bulk_frame(frame: pd.DataFrame) -> pd.DataFrame:
+    missing = sorted(set(FEATURES) - set(frame.columns))
     if missing:
         raise ValueError("Missing required columns: " + ", ".join(missing))
-    cleaned = frame[expected_features].apply(pd.to_numeric, errors="coerce")
+    cleaned = frame[FEATURES].apply(pd.to_numeric, errors="coerce")
     if cleaned.isna().any().any():
         bad = cleaned.columns[cleaned.isna().any()].tolist()
         raise ValueError("These columns must contain numbers: " + ", ".join(bad))
@@ -70,7 +117,7 @@ st.markdown(
     .brand-hero h1 {{ color:white; margin:0; font-size:clamp(1.8rem,4vw,2.65rem); }}
     .brand-hero p {{ color:#ffe4e6; margin:.5rem 0 0; max-width:760px; }}
     .help-card {{ padding:1rem 1.15rem; border:1px solid #fecdd3; border-radius:14px;
-      background:#fff; margin: .5rem 0 1rem; }}
+      background:#fff; margin:.5rem 0 1rem; }}
     div[data-testid="stMetric"], div[data-testid="stForm"] {{ background:white;
       border:1px solid #fecdd3; border-radius:16px; padding:1rem; }}
     button[kind="primary"] {{ background:#be123c !important; border-color:#be123c !important;
@@ -81,7 +128,7 @@ st.markdown(
       <div style="color:#fecdd3;text-transform:uppercase;letter-spacing:.16em;font-size:.75rem;font-weight:800">
         Decision Tree · Educational review tool</div>
       <h1>Transaction Fraud Lab</h1>
-      <p>Try a guided example or upload a transaction record to receive a model-based review signal.</p>
+      <p>Answer simple questions for an educational screening score, or upload research-format data for the trained model.</p>
     </div></section>
     """,
     unsafe_allow_html=True,
@@ -96,129 +143,133 @@ except FileNotFoundError as error:
 threshold = float(metadata["selected_threshold"])
 with st.sidebar:
     st.image(LOGO_PATH, width=70)
-    st.markdown("### How to use this page")
-    st.markdown("1. Choose a simple example or upload a CSV.\n2. Click **Check transaction**.\n3. Treat the result as a review signal only.")
+    st.markdown("### Start here")
+    st.markdown("Choose one of the two tabs. Do not upload personal, confidential, or live customer data.")
     st.divider()
-    st.markdown("### Model information")
+    st.markdown("### Trained model")
     st.write(f"Training transactions: **{metadata['train_rows']:,}**")
-    st.write(f"Holdout transactions: **{metadata['test_rows']:,}**")
     st.write(f"Holdout PR-AUC: **{metadata['holdout_pr_auc']:.3f}**")
-    st.write(f"Review threshold: **{threshold:.2f}**")
+    st.write(f"Review threshold: **{threshold:.0%}**")
     st.divider()
     st.link_button("View dataset information", metadata["dataset"]["source"])
 
 st.warning(
     "This educational tool does not prove fraud, approve payments, or decline transactions. "
-    "Every result needs trained human review and a proper production governance process."
+    "Every result needs trained human review."
 )
 
-st.markdown("### Choose how you want to check a transaction")
-mode = st.radio(
-    "Input method",
-    ["Guided example (recommended)", "Upload a CSV", "Advanced feature editor"],
-    horizontal=True,
-    label_visibility="collapsed",
-)
+manual_tab, bulk_tab = st.tabs(["🧭 Manual questionnaire", "📁 Bulk upload"])
 
-frame: pd.DataFrame | None = None
-if mode == "Guided example (recommended)":
+with manual_tab:
     st.markdown(
-        '<div class="help-card"><strong>New to fraud models?</strong> Start here. '
-        "These examples let you explore the workflow without technical PCA variables.</div>",
+        '<div class="help-card"><strong>For everyone:</strong> answer the questions below using '
+        "the information you have. This is a transparent educational screening score; it is not "
+        "the trained ULB model because that dataset uses anonymised research features.</div>",
         unsafe_allow_html=True,
     )
-    with st.form("guided_check"):
-        example = st.selectbox(
-            "Choose an example",
-            ["Typical low-amount purchase", "Large online purchase", "Higher review signal"],
-            help="These are educational examples, not real customer records.",
+    with st.form("manual_questionnaire"):
+        left, middle, right = st.columns(3)
+        with left:
+            amount = st.number_input("Transaction amount", min_value=0.0, value=100.0, step=10.0)
+            channel = st.selectbox(
+                "How was it paid?",
+                ["Card present", "Online checkout", "Mobile wallet", "Bank transfer"],
+            )
+            location = st.selectbox(
+                "Where was it made?",
+                ["Usual location", "New domestic location", "International location"],
+            )
+        with middle:
+            device = st.selectbox(
+                "Is the device familiar?",
+                ["Known device", "Recently seen device", "New device"],
+            )
+            velocity = st.selectbox(
+                "Recent transaction activity",
+                ["Normal frequency", "Several transactions", "Unusually rapid transactions"],
+            )
+            authentication = st.selectbox(
+                "Authentication result",
+                ["Strong authentication passed", "Standard authentication", "Authentication failed"],
+            )
+        with right:
+            account_age = st.selectbox(
+                "How old is the account?",
+                ["Established account", "Recently opened account", "New account"],
+            )
+            st.info("These questions are intentionally simple. They are not claims about the anonymised research features.")
+        manual_submitted = st.form_submit_button("Calculate screening score", type="primary", use_container_width=True)
+
+    if manual_submitted:
+        score, reasons = score_questionnaire(
+            amount, channel, location, device, velocity, authentication, account_age
         )
-        st.caption("The model uses anonymised research features behind the scenes.")
-        submitted = st.form_submit_button("Check transaction", type="primary", use_container_width=True)
-    if submitted:
-        frame = example_frame(example)
+        st.divider()
+        st.subheader("Educational screening result")
+        result_col, detail_col = st.columns([1, 1.5])
+        with result_col:
+            st.metric("Screening score", f"{score}/100")
+            st.progress(score / 100)
+        with detail_col:
+            if score >= 60:
+                st.error("🔎 Consider additional human review")
+            elif score >= 30:
+                st.warning("⚠️ Consider verifying the transaction details")
+            else:
+                st.success("✅ Lower screening concern")
+            st.caption("This rule-based score is a teaching aid, not a trained-model probability.")
+        with st.expander("Why did the score change?"):
+            if reasons:
+                for reason in reasons:
+                    st.write(f"- {reason}")
+            else:
+                st.write("No elevated indicators were selected.")
 
-elif mode == "Upload a CSV":
+with bulk_tab:
     st.markdown(
-        '<div class="help-card"><strong>For analysts:</strong> upload a CSV containing one or '
-        "more rows with the exact columns listed below. Do not upload personal or confidential data.</div>",
+        '<div class="help-card"><strong>For analysts:</strong> use the trained Decision Tree with '
+        "one or many rows from the real ULB dataset. The model expects anonymised research columns, "
+        "not business questions.</div>",
         unsafe_allow_html=True,
     )
-    st.code(", ".join(FEATURES), language="text")
-    uploaded = st.file_uploader("Choose a transaction CSV", type=["csv"])
+    st.download_button(
+        "⬇️ Download CSV template",
+        data=csv_template(),
+        file_name="transaction_fraud_model_template.csv",
+        mime="text/csv",
+        use_container_width=True,
+    )
+    st.caption("The template contains `Time`, `V1`–`V28`, and `Amount`. Do not rename or reorder columns.")
+    uploaded = st.file_uploader("Upload CSV or Excel file", type=["csv", "xlsx"])
     if uploaded is not None:
         try:
-            uploaded_frame = pd.read_csv(uploaded)
-            if len(uploaded_frame) == 0:
-                st.error("The CSV is empty.")
+            if uploaded.name.lower().endswith(".xlsx"):
+                bulk_frame = pd.read_excel(io.BytesIO(uploaded.getvalue()))
             else:
-                row_number = st.number_input(
-                    "Which row should be checked?",
-                    min_value=1,
-                    max_value=len(uploaded_frame),
-                    value=1,
-                    step=1,
+                bulk_frame = pd.read_csv(uploaded)
+            clean_bulk = validate_bulk_frame(bulk_frame)
+            st.success(f"Loaded {len(clean_bulk):,} transaction row(s).")
+            st.dataframe(bulk_frame.head(5), use_container_width=True, hide_index=True)
+            if st.button("Calculate model scores", type="primary", use_container_width=True):
+                probabilities = model.predict_proba(clean_bulk)[:, list(model.classes_).index(1)]
+                results = bulk_frame.copy()
+                results["fraud_probability"] = probabilities
+                results["review_signal"] = probabilities >= threshold
+                st.subheader("Trained model results")
+                metric_a, metric_b, metric_c = st.columns(3)
+                metric_a.metric("Rows checked", f"{len(results):,}")
+                metric_b.metric("Rows for review", f"{int(results['review_signal'].sum()):,}")
+                metric_c.metric("Highest score", f"{probabilities.max():.2%}")
+                st.dataframe(results[["fraud_probability", "review_signal"]].head(100), use_container_width=True)
+                st.download_button(
+                    "⬇️ Download scored results",
+                    data=results.to_csv(index=False).encode("utf-8"),
+                    file_name="transaction_fraud_scored_results.csv",
+                    mime="text/csv",
+                    use_container_width=True,
                 )
-                st.dataframe(uploaded_frame.head(5), use_container_width=True, hide_index=True)
-                if st.button("Check selected row", type="primary", use_container_width=True):
-                    frame = uploaded_frame.iloc[[int(row_number) - 1]]
-        except (pd.errors.ParserError, UnicodeDecodeError) as error:
-            st.error(f"Could not read this CSV: {error}")
-
-else:
-    st.markdown(
-        '<div class="help-card"><strong>Advanced mode:</strong> the public dataset anonymises '
-        "its inputs as V1–V28. Only use this mode if you already have those research features.</div>",
-        unsafe_allow_html=True,
-    )
-    with st.form("advanced_check"):
-        left, right = st.columns(2)
-        with left:
-            transaction_time = st.number_input("Time (seconds)", min_value=0.0, value=100000.0)
-            amount = st.number_input("Amount", min_value=0.0, value=100.0)
-        with right:
-            st.caption("Leave the anonymised features at zero for a neutral baseline.")
-        values = {}
-        for start in range(0, 28, 7):
-            cols = st.columns(7)
-            for col, feature in zip(cols, [f"V{i}" for i in range(1 + start, 8 + start)]):
-                with col:
-                    values[feature] = st.number_input(feature, value=0.0, format="%.5f")
-        submitted = st.form_submit_button("Check transaction", type="primary", use_container_width=True)
-    if submitted:
-        frame = pd.DataFrame([{"Time": transaction_time, **values, "Amount": amount}], columns=FEATURES)
-
-if frame is not None:
-    try:
-        clean_frame = validate_frame(frame, metadata["input_features"])
-        probability = float(model.predict_proba(clean_frame)[0, list(model.classes_).index(1)])
-    except ValueError as error:
-        st.error(f"Please correct the input: {error}")
-    else:
-        st.divider()
-        st.markdown("### Review result")
-        result_col, explanation_col = st.columns([1, 1.5])
-        with result_col:
-            st.metric("Model-estimated fraud probability", f"{probability:.2%}")
-            st.progress(min(probability, 1.0), text=f"Review threshold: {threshold:.0%}")
-        with explanation_col:
-            if probability >= threshold:
-                st.error("🔎 **Send for human review**")
-                st.write("This record is above the configured review threshold.")
-            else:
-                st.success("✅ **Below the review threshold**")
-                st.write("This record is below the configured review threshold.")
-            st.caption(
-                "A below-threshold result does not certify a transaction as legitimate. "
-                "Review the evidence and follow your organisation's controls."
-            )
-        with st.expander("What does this result mean?"):
-            st.markdown(
-                "- **Probability** is the model's estimated score for the fraud class.\n"
-                "- **Threshold** is an operating point selected during evaluation.\n"
-                "- **Human review** is required before any customer or payment action.\n"
-                "- This research dataset uses anonymised features and may not represent current transaction behaviour."
-            )
+        except (ValueError, pd.errors.ParserError, UnicodeDecodeError, ImportError) as error:
+            st.error(f"Could not process this file: {error}")
 
 st.divider()
 st.caption(

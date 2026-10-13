@@ -55,3 +55,8 @@ The first run can take time because the notebook is executed and Chromium may ne
 - PDF export requires a working Playwright/Chromium installation.
 - Syntax colours depend on the notebook's HTML/PDF rendering and the viewer or printer settings.
 - A public GitHub repository makes committed files public. Only publish datasets and model artifacts that you are allowed to redistribute.
+
+
+## Visual Studio Code setup and images
+
+See [VS Code and notebook publishing](VSCODE_AND_NOTEBOOK_PUBLISHING.md) for the Mac setup, virtual environment, kernel selection, execution, image handling, and HTML/PDF checks.

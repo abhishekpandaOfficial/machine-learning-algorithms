@@ -23,3 +23,18 @@ Each project has its own dependencies, saved pipeline, threshold, metadata and d
 ## Important
 
 Both projects are educational demonstrations, not automated systems for making consequential decisions about customers or insurance claimants.
+
+
+## Learning and notebook downloads
+
+The notebooks are intended to teach the complete machine-learning lifecycle: problem definition, data understanding, preprocessing, train/validation/test splitting, model training, evaluation, experiment tracking, packaging, testing, deployment and monitoring.
+
+For each project, the goal is to provide:
+- An explanatory Jupyter notebook with theory, commented code, charts and saved outputs.
+- HTML and PDF exports generated from an executed notebook.
+- A reproducible training pipeline, tests and a Streamlit demonstration.
+- MLflow experiment tracking; DVC when dataset or artifact versioning is warranted.
+
+### Export notebooks to HTML and PDF
+
+See [the notebook publishing guide](tools/README.md) and use the [export script](tools/export_notebook.py). Exports must be generated and reviewed in an environment with the project's dependencies and data available before they are committed as public downloads.
